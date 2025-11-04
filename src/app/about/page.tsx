@@ -472,7 +472,20 @@ export default function AboutPage() {
             </Box>
           </Grid>
           <Box borderTop="1px" borderColor="gray.800" pt={8} mt={8} textAlign="center" color="gray.400">
-            <Text fontSize="sm">&copy; 2024 Ontour Travels. All rights reserved. Powered by Amadeus</Text>
+            <Text fontSize="sm">
+              &copy; 2024 Ontour Travels. All rights reserved. Made with Love{" "}
+              <Text as="span" color="red.500" fontSize="md">❤️</Text>{" "}
+              by{" "}
+              <Link 
+                href="https://github.com/peldevon" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                color="blue.400"
+                _hover={{ color: "blue.300", textDecoration: "underline" }}
+              >
+                Peldevon
+              </Link>
+            </Text>
           </Box>
         </Container>
       </Box>
