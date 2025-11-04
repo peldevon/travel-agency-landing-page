@@ -15,7 +15,6 @@ import {
   Icon,
   Link,
   Input,
-  Badge,
   Checkbox,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
@@ -468,9 +467,18 @@ function PropertyCard({ image, title, location, price, rating, reviews, amenitie
         </Heading>
         <HStack gap={2} mb={4} flexWrap="wrap">
           {amenities.map((amenity: string) => (
-            <Badge key={amenity} colorPalette="blue" variant="subtle" fontSize="xs">
+            <Box
+              key={amenity}
+              px={2}
+              py={1}
+              bg="blue.50"
+              color="blue.700"
+              borderRadius="md"
+              fontSize="xs"
+              fontWeight="medium"
+            >
               {amenity}
-            </Badge>
+            </Box>
           ))}
         </HStack>
         <Flex justify="space-between" align="center" mb={4}>
