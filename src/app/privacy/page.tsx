@@ -6,13 +6,8 @@ import {
   Heading,
   Text,
   VStack,
-  HStack,
-  Grid,
-  Link,
-  Icon,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Plane } from "lucide-react";
 
 const MotionBox = motion.create(Box);
 
@@ -259,66 +254,6 @@ export default function PrivacyPage() {
           </Box>
         </VStack>
       </Container>
-
-      {/* Footer */}
-      <Box bg="gray.900" color="white" py={12}>
-        <Container maxW="7xl">
-          <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8}>
-            <Box>
-              <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="blue.400" />
-                <Text fontSize="2xl" fontWeight="bold">Ontour Travels</Text>
-              </HStack>
-              <Text color="gray.400" fontSize="sm">
-                Your trusted partner for travel and experiences.
-              </Text>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Quick Links</Heading>
-              <VStack align="start" gap={2}>
-                <Link href="/" color="gray.400" _hover={{ color: "white" }}>Home</Link>
-                <Link href="/book" color="gray.400" _hover={{ color: "white" }}>Flights & Hotels</Link>
-                <Link href="/shortlets" color="gray.400" _hover={{ color: "white" }}>Shortlets</Link>
-                <Link href="/tours" color="gray.400" _hover={{ color: "white" }}>Tours</Link>
-              </VStack>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Support</Heading>
-              <VStack align="start" gap={2}>
-                <Link href="/about" color="gray.400" _hover={{ color: "white" }}>About Us</Link>
-                <Link href="/contact" color="gray.400" _hover={{ color: "white" }}>Contact</Link>
-                <Link href="/faq" color="gray.400" _hover={{ color: "white" }}>FAQ</Link>
-                <Link href="/terms" color="gray.400" _hover={{ color: "white" }}>Terms & Conditions</Link>
-                <Link href="/privacy" color="gray.400" _hover={{ color: "white" }}>Privacy Policy</Link>
-              </VStack>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Contact</Heading>
-              <VStack align="start" gap={2}>
-                <Text color="gray.400" fontSize="sm">+234 812 345 6789</Text>
-                <Text color="gray.400" fontSize="sm">info@ontourtravels.com.ng</Text>
-                <Text color="gray.400" fontSize="sm">Mon–Sat, 9 AM – 6 PM WAT</Text>
-              </VStack>
-            </Box>
-          </Grid>
-          <Box borderTop="1px" borderColor="gray.800" pt={8} mt={8} textAlign="center" color="gray.400">
-            <Text fontSize="sm">
-              &copy; 2024 Ontour Travels. All rights reserved. Made with Love{" "}
-              <Text as="span" color="red.500" fontSize="md">❤️</Text>{" "}
-              by{" "}
-              <Link 
-                href="https://github.com/peldevon" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                color="blue.400"
-                _hover={{ color: "blue.300", textDecoration: "underline" }}
-              >
-                Peldevon
-              </Link>
-            </Text>
-          </Box>
-        </Container>
-      </Box>
     </Box>
   );
 }
