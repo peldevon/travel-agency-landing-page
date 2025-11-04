@@ -13,28 +13,22 @@ import {
   HStack,
   VStack,
   Icon,
-  Link,
   Input,
   Checkbox,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { 
-  Plane, 
   MapPin,
-  Users,
-  Wifi,
-  Wind,
-  Car,
-  Tv,
   Shield,
-  MessageCircle,
   Calendar,
+  CheckCircle,
+  MessageCircle,
   Search,
   Filter,
   Star,
-  CheckCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const MotionBox = motion.create(Box);
 const MotionCard = motion.create(Card.Root);
@@ -62,36 +56,7 @@ const staggerContainer = {
 export default function ShortletsPage() {
   return (
     <Box minH="100vh" bg="gray.50">
-      {/* Header */}
-      <Box
-        position="sticky"
-        top={0}
-        zIndex={50}
-        bg="white"
-        boxShadow="sm"
-      >
-        <Container maxW="7xl" py={4}>
-          <Flex justify="space-between" align="center">
-            <HStack gap={2} as="a" href="/">
-              <Icon as={Plane} boxSize={8} color="blue.600" />
-              <Text fontSize="2xl" fontWeight="bold" color="gray.900">
-                Ontour Travels
-              </Text>
-            </HStack>
-            <HStack gap={6} display={{ base: "none", md: "flex" }}>
-              <Link href="/" color="gray.700">Home</Link>
-              <Link href="/book" color="gray.700">Flights & Hotels</Link>
-              <Link href="/tours" color="gray.700">Tours</Link>
-              <Link href="/about" color="gray.700">About</Link>
-              <Link href="/contact" color="gray.700">Contact</Link>
-              <Button colorPalette="blue" size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
-                <Icon as={MessageCircle} mr={1} />
-                WhatsApp
-              </Button>
-            </HStack>
-          </Flex>
-        </Container>
-      </Box>
+      <Header />
 
       {/* Hero Section */}
       <MotionBox
@@ -335,58 +300,15 @@ export default function ShortletsPage() {
               target="_blank"
               colorPalette="green"
               size="lg"
-              leftIcon={<MessageCircle />}
             >
+              <Icon as={MessageCircle} mr={2} />
               Chat on WhatsApp
             </Button>
           </MotionBox>
         </Container>
       </Box>
 
-      {/* Footer */}
-      <Box bg="gray.900" color="white" py={12}>
-        <Container maxW="7xl">
-          <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8}>
-            <Box>
-              <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="blue.400" />
-                <Text fontSize="2xl" fontWeight="bold">Ontour Travels</Text>
-              </HStack>
-              <Text color="gray.400" fontSize="sm">
-                Your trusted partner for travel and accommodation in Lagos.
-              </Text>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Quick Links</Heading>
-              <VStack align="start" gap={2}>
-                <Link href="/" color="gray.400" _hover={{ color: "white" }}>Home</Link>
-                <Link href="/book" color="gray.400" _hover={{ color: "white" }}>Flights & Hotels</Link>
-                <Link href="/tours" color="gray.400" _hover={{ color: "white" }}>Tours</Link>
-                <Link href="/about" color="gray.400" _hover={{ color: "white" }}>About</Link>
-              </VStack>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Support</Heading>
-              <VStack align="start" gap={2}>
-                <Link href="/contact" color="gray.400" _hover={{ color: "white" }}>Contact Us</Link>
-                <Link href="#" color="gray.400" _hover={{ color: "white" }}>FAQ</Link>
-                <Link href="#" color="gray.400" _hover={{ color: "white" }}>Privacy Policy</Link>
-              </VStack>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Contact</Heading>
-              <VStack align="start" gap={2}>
-                <Text color="gray.400" fontSize="sm">+234 812 345 6789</Text>
-                <Text color="gray.400" fontSize="sm">info@ontourtravels.com.ng</Text>
-                <Text color="gray.400" fontSize="sm">Mon–Sat, 9 AM – 6 PM</Text>
-              </VStack>
-            </Box>
-          </Grid>
-          <Box borderTop="1px" borderColor="gray.800" pt={8} mt={8} textAlign="center" color="gray.400">
-            <Text fontSize="sm">&copy; 2024 Ontour Travels. All rights reserved.</Text>
-          </Box>
-        </Container>
-      </Box>
+      <Footer />
     </Box>
   );
 }

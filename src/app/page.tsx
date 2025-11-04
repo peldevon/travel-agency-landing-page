@@ -19,7 +19,6 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import { Avatar } from "@/components/ui/avatar";
 import { 
   MapPin, 
@@ -39,13 +38,11 @@ import {
   CreditCard,
   Hotel,
   Search,
-  Users,
-  Wifi,
-  Wind,
-  Car,
   MessageCircle,
+  Heart,
 } from "lucide-react";
 import { useState } from "react";
+import NextImage from "next/image";
 
 const MotionBox = motion.create(Box);
 const MotionFlex = motion.create(Flex);
@@ -108,8 +105,15 @@ export default function Home() {
         <Container maxW="7xl" py={4}>
           <Flex justify="space-between" align="center">
             <HStack gap={2}>
-              <Icon as={Plane} boxSize={8} color="blue.600" />
-              <Text fontSize="2xl" fontWeight="bold" color="gray.900">
+              <Box position="relative" w={10} h={10}>
+                <NextImage
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762251116073.png?width=8000&height=8000&resize=contain"
+                  alt="Ontour Travels Logo"
+                  fill
+                  style={{ objectFit: "contain" }}
+                />
+              </Box>
+              <Text fontSize="2xl" fontFamily="var(--font-montserrat)" fontWeight="bold" color="gray.900">
                 Ontour Travels
               </Text>
             </HStack>
@@ -532,8 +536,8 @@ export default function Home() {
               target="_blank"
               colorPalette="green"
               size="lg"
-              leftIcon={<MessageCircle />}
             >
+              <Icon as={MessageCircle} mr={2} />
               Chat on WhatsApp
             </Button>
           </MotionBox>
@@ -546,8 +550,15 @@ export default function Home() {
           <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8} mb={8}>
             <Box>
               <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="blue.400" />
-                <Text fontSize="2xl" fontWeight="bold">Ontour Travels</Text>
+                <Box position="relative" w={8} h={8}>
+                  <NextImage
+                    src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762251116073.png?width=8000&height=8000&resize=contain"
+                    alt="Ontour Travels Logo"
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
+                </Box>
+                <Text fontSize="2xl" fontFamily="var(--font-montserrat)" fontWeight="bold">Ontour Travels</Text>
               </HStack>
               <Text color="gray.400" mb={4}>
                 Your trusted partner in creating unforgettable travel experiences around the world.
@@ -579,9 +590,9 @@ export default function Home() {
               <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Support</Heading>
               <VStack align="start" gap={2}>
                 <Link href="/contact" color="gray.400" _hover={{ color: "white" }}>Contact Us</Link>
-                <Link href="#" color="gray.400" _hover={{ color: "white" }}>FAQ</Link>
-                <Link href="#" color="gray.400" _hover={{ color: "white" }}>Terms & Conditions</Link>
-                <Link href="#" color="gray.400" _hover={{ color: "white" }}>Privacy Policy</Link>
+                <Link href="/faq" color="gray.400" _hover={{ color: "white" }}>FAQ</Link>
+                <Link href="/terms" color="gray.400" _hover={{ color: "white" }}>Terms & Conditions</Link>
+                <Link href="/privacy" color="gray.400" _hover={{ color: "white" }}>Privacy Policy</Link>
               </VStack>
             </Box>
 
@@ -605,7 +616,18 @@ export default function Home() {
           </Grid>
 
           <Box borderTop="1px" borderColor="gray.800" pt={8} textAlign="center" color="gray.400">
-            <Text>&copy; 2024 Ontour Travels. All rights reserved. Powered by Amadeus</Text>
+            <Text>
+              &copy; 2024 Ontour Travels. All rights reserved. | Made with{" "}
+              <Icon as={Heart} display="inline" color="red.500" fill="red.500" boxSize={4} /> by{" "}
+              <Link 
+                href="https://github.com/peldevon" 
+                target="_blank" 
+                color="blue.400" 
+                _hover={{ textDecoration: "underline" }}
+              >
+                Peldevon
+              </Link>
+            </Text>
           </Box>
         </Container>
       </Box>
