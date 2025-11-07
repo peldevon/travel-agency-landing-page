@@ -335,8 +335,8 @@ export default function ShortletsPage() {
               target="_blank"
               colorPalette="green"
               size="lg"
-              leftIcon={<MessageCircle />}
             >
+              <Icon as={MessageCircle} mr={2} />
               Chat on WhatsApp
             </Button>
           </MotionBox>
