@@ -109,3 +109,79 @@ export const cmsUsers = sqliteTable('cms_users', {
   active: integer('active', { mode: 'boolean' }).default(true),
   createdAt: text('created_at').notNull(),
 });
+
+// Visual CMS Users table
+export const visualCmsUsers = sqliteTable('visual_cms_users', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  email: text('email').notNull().unique(),
+  passwordHash: text('password_hash').notNull(),
+  fullName: text('full_name').notNull(),
+  role: text('role').notNull().default('viewer'), // admin, editor, viewer
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+// Visual CMS Pages table
+export const visualCmsPages = sqliteTable('visual_cms_pages', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  slug: text('slug').notNull().unique(),
+  title: text('title').notNull(),
+  content: text('content').notNull(),
+  metaTitle: text('meta_title'),
+  metaDescription: text('meta_description'),
+  status: text('status').notNull().default('draft'), // draft, published, archived
+  createdBy: integer('created_by').notNull().references(() => visualCmsUsers.id),
+  updatedBy: integer('updated_by').references(() => visualCmsUsers.id),
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+  publishedAt: text('published_at'),
+});
+
+// Visual CMS Media table
+export const visualCmsMedia = sqliteTable('visual_cms_media', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  filename: text('filename').notNull(),
+  originalName: text('original_name').notNull(),
+  mimeType: text('mime_type').notNull(),
+  size: integer('size').notNull(),
+  url: text('url').notNull(),
+  altText: text('alt_text'),
+  uploadedBy: integer('uploaded_by').notNull().references(() => visualCmsUsers.id),
+  createdAt: text('created_at').notNull(),
+});
+
+// Visual CMS Shortlets table
+export const visualCmsShortlets = sqliteTable('visual_cms_shortlets', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  title: text('title').notNull(),
+  slug: text('slug').notNull().unique(),
+  description: text('description').notNull(),
+  location: text('location').notNull(),
+  pricePerNight: integer('price_per_night').notNull(),
+  bedrooms: integer('bedrooms').notNull(),
+  amenities: text('amenities', { mode: 'json' }),
+  images: text('images', { mode: 'json' }),
+  rating: real('rating').default(0),
+  reviewsCount: integer('reviews_count').default(0),
+  status: text('status').notNull().default('active'), // active, inactive
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});
+
+// Visual CMS Tours table
+export const visualCmsTours = sqliteTable('visual_cms_tours', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  title: text('title').notNull(),
+  slug: text('slug').notNull().unique(),
+  description: text('description').notNull(),
+  duration: text('duration').notNull(),
+  priceFrom: integer('price_from').notNull(),
+  tag: text('tag').notNull(),
+  images: text('images', { mode: 'json' }),
+  itinerary: text('itinerary', { mode: 'json' }),
+  inclusions: text('inclusions', { mode: 'json' }),
+  exclusions: text('exclusions', { mode: 'json' }),
+  status: text('status').notNull().default('active'), // active, inactive
+  createdAt: text('created_at').notNull(),
+  updatedAt: text('updated_at').notNull(),
+});

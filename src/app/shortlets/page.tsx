@@ -15,9 +15,9 @@ import {
   Icon,
   Link,
   Input,
-  Checkbox,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { Checkbox } from "@/components/ui/checkbox";
 import { 
   Plane, 
   MapPin,
