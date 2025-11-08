@@ -108,28 +108,28 @@ export default function Home() {
         <Container maxW="7xl" py={4}>
           <Flex justify="space-between" align="center">
             <HStack gap={2}>
-              <Icon as={Plane} boxSize={8} color="blue.600" />
-              <Text fontSize="2xl" fontWeight="bold" color="gray.900">
+              <Icon as={Plane} boxSize={8} color="#152852" />
+              <Text fontSize="2xl" fontWeight="bold" color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
                 Ontour Travels
               </Text>
             </HStack>
             <HStack gap={8} display={{ base: "none", md: "flex" }}>
-              <Link href="/book" color="gray.700" _hover={{ color: "blue.600" }}>
+              <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif">
                 Flights & Hotels
               </Link>
-              <Link href="/shortlets" color="gray.700" _hover={{ color: "blue.600" }}>
+              <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif">
                 Shortlets
               </Link>
-              <Link href="/tours" color="gray.700" _hover={{ color: "blue.600" }}>
+              <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif">
                 Tours
               </Link>
-              <Link href="/about" color="gray.700" _hover={{ color: "blue.600" }}>
+              <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif">
                 About
               </Link>
-              <Link href="/contact" color="gray.700" _hover={{ color: "blue.600" }}>
+              <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif">
                 Contact
               </Link>
-              <Button colorPalette="blue" as="a" href="https://wa.me/2348123456789" target="_blank">
+              <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} as="a" href="https://wa.me/2348123456789" target="_blank">
                 <Icon as={MessageCircle} mr={2} />
                 WhatsApp
               </Button>
@@ -171,13 +171,13 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Heading as="h1" fontSize={{ base: "4xl", md: "6xl" }} fontWeight="bold" mb={4}>
+            <Heading as="h1" fontSize={{ base: "4xl", md: "6xl" }} fontWeight="bold" mb={4} fontFamily="'Montserrat', sans-serif">
               Book Flights, Hotels & Shortlet Stays — Fast
             </Heading>
-            <Text fontSize={{ base: "lg", md: "xl" }} color="gray.100" mb={2}>
+            <Text fontSize={{ base: "lg", md: "xl" }} color="#FAFAFA" mb={2} fontFamily="'Poppins', sans-serif">
               Trusted Lagos travel concierge. Seamless bookings, real support.
             </Text>
-            <Text fontSize="sm" color="blue.300">
+            <Text fontSize="sm" color="#C9A449">
               Powered by Amadeus
             </Text>
           </MotionBox>
@@ -194,11 +194,11 @@ export default function Home() {
           >
             <Tabs.Root value={searchType} onValueChange={(e) => setSearchType(e.value as any)}>
               <Tabs.List mb={6}>
-                <Tabs.Trigger value="flights" color="gray.700" fontWeight="medium">
+                <Tabs.Trigger value="flights" color="#2C2C2C" fontWeight="medium">
                   <Icon as={Plane} mr={2} />
                   Flights
                 </Tabs.Trigger>
-                <Tabs.Trigger value="hotels" color="gray.700" fontWeight="medium">
+                <Tabs.Trigger value="hotels" color="#2C2C2C" fontWeight="medium">
                   <Icon as={Hotel} mr={2} />
                   Hotels
                 </Tabs.Trigger>
@@ -210,7 +210,10 @@ export default function Home() {
                     <Button
                       size="sm"
                       variant={tripType === "round-trip" ? "solid" : "outline"}
-                      colorPalette="blue"
+                      bg={tripType === "round-trip" ? "#152852" : "transparent"}
+                      color={tripType === "round-trip" ? "white" : "#152852"}
+                      borderColor="#152852"
+                      _hover={{ bg: tripType === "round-trip" ? "#0d1a35" : "#f0f0f0" }}
                       onClick={() => setTripType("round-trip")}
                     >
                       Round-trip
@@ -218,7 +221,10 @@ export default function Home() {
                     <Button
                       size="sm"
                       variant={tripType === "one-way" ? "solid" : "outline"}
-                      colorPalette="blue"
+                      bg={tripType === "one-way" ? "#152852" : "transparent"}
+                      color={tripType === "one-way" ? "white" : "#152852"}
+                      borderColor="#152852"
+                      _hover={{ bg: tripType === "one-way" ? "#0d1a35" : "#f0f0f0" }}
                       onClick={() => setTripType("one-way")}
                     >
                       One-way
@@ -226,20 +232,20 @@ export default function Home() {
                   </HStack>
                   
                   <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-                    <Input placeholder="From (e.g., LOS - Lagos)" size="lg" color="gray.700" />
-                    <Input placeholder="To (e.g., LHR - London)" size="lg" color="gray.700" />
-                    <Input type="date" placeholder="Depart date" size="lg" color="gray.700" />
+                    <Input placeholder="From (e.g., LOS - Lagos)" size="lg" color="#2C2C2C" />
+                    <Input placeholder="To (e.g., LHR - London)" size="lg" color="#2C2C2C" />
+                    <Input type="date" placeholder="Depart date" size="lg" color="#2C2C2C" />
                     {tripType === "round-trip" && (
-                      <Input type="date" placeholder="Return date" size="lg" color="gray.700" />
+                      <Input type="date" placeholder="Return date" size="lg" color="#2C2C2C" />
                     )}
                   </Grid>
                   
                   <HStack gap={4}>
-                    <Input placeholder="Passengers (1 Adult)" size="lg" color="gray.700" />
-                    <Input placeholder="Economy" size="lg" color="gray.700" />
+                    <Input placeholder="Passengers (1 Adult)" size="lg" color="#2C2C2C" />
+                    <Input placeholder="Economy" size="lg" color="#2C2C2C" />
                   </HStack>
                   
-                  <Button colorPalette="blue" size="lg" w="full" as="a" href="/book">
+                  <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" w="full" as="a" href="/book">
                     <Icon as={Search} mr={2} />
                     Search Flights
                   </Button>
@@ -252,13 +258,13 @@ export default function Home() {
               <Tabs.Content value="hotels">
                 <VStack gap={4} align="stretch">
                   <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
-                    <Input placeholder="Destination (e.g., Lagos, Nigeria)" size="lg" color="gray.700" />
-                    <Input type="date" placeholder="Check-in" size="lg" color="gray.700" />
-                    <Input type="date" placeholder="Check-out" size="lg" color="gray.700" />
-                    <Input placeholder="Guests & Rooms (2 guests, 1 room)" size="lg" color="gray.700" />
+                    <Input placeholder="Destination (e.g., Lagos, Nigeria)" size="lg" color="#2C2C2C" />
+                    <Input type="date" placeholder="Check-in" size="lg" color="#2C2C2C" />
+                    <Input type="date" placeholder="Check-out" size="lg" color="#2C2C2C" />
+                    <Input placeholder="Guests & Rooms (2 guests, 1 room)" size="lg" color="#2C2C2C" />
                   </Grid>
                   
-                  <Button colorPalette="blue" size="lg" w="full" as="a" href="/book">
+                  <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" w="full" as="a" href="/book">
                     <Icon as={Search} mr={2} />
                     Search Hotels
                   </Button>
@@ -294,7 +300,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Featured Shortlets */}
-      <AnimatedSection bg="gray.50">
+      <AnimatedSection bg="#FAFAFA">
         <Container maxW="7xl" py={20}>
           <MotionBox
             textAlign="center"
@@ -304,10 +310,10 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
               Lagos Shortlet Stays You'll Love
             </Heading>
-            <Text fontSize="xl" color="gray.600">
+            <Text fontSize="xl" color="#555555" fontFamily="'Poppins', sans-serif">
               Flexible check-in, verified homes, responsive hosts.
             </Text>
           </MotionBox>
@@ -344,7 +350,7 @@ export default function Home() {
           </MotionBox>
 
           <Flex justify="center" mt={10}>
-            <Button as="a" href="/shortlets" colorPalette="blue" size="lg">
+            <Button as="a" href="/shortlets" bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg">
               View All Shortlets
             </Button>
           </Flex>
@@ -362,10 +368,10 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
               Curated Tours & Experiences
             </Heading>
-            <Text fontSize="xl" color="gray.600">
+            <Text fontSize="xl" color="#555555" fontFamily="'Poppins', sans-serif">
               Handpicked trips with transparent pricing.
             </Text>
           </MotionBox>
@@ -402,7 +408,7 @@ export default function Home() {
           </MotionBox>
 
           <Flex justify="center" mt={10}>
-            <Button as="a" href="/tours" colorPalette="blue" size="lg">
+            <Button as="a" href="/tours" bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg">
               Explore All Tours
             </Button>
           </Flex>
@@ -410,7 +416,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* How It Works */}
-      <AnimatedSection bg="blue.600" color="white">
+      <AnimatedSection bg="#152852" color="white">
         <Container maxW="7xl" py={20}>
           <MotionBox
             textAlign="center"
@@ -420,10 +426,10 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4}>
+            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} fontFamily="'Montserrat', sans-serif">
               How It Works
             </Heading>
-            <Text fontSize="xl" color="blue.100">
+            <Text fontSize="xl" color="#FAFAFA" fontFamily="'Poppins', sans-serif">
               Simple, secure, and seamless travel booking in 3 easy steps
             </Text>
           </MotionBox>
@@ -459,7 +465,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Testimonials */}
-      <AnimatedSection bg="gray.50">
+      <AnimatedSection bg="#FAFAFA">
         <Container maxW="7xl" py={20}>
           <MotionBox
             textAlign="center"
@@ -469,10 +475,10 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
               What Our Travelers Say
             </Heading>
-            <Text fontSize="xl" color="gray.600">
+            <Text fontSize="xl" color="#555555" fontFamily="'Poppins', sans-serif">
               Real experiences from real travelers who trusted us
             </Text>
           </MotionBox>
@@ -511,7 +517,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* WhatsApp CTA */}
-      <AnimatedSection bg="blue.50">
+      <AnimatedSection bg="#f7f4ed">
         <Container maxW="4xl" py={16}>
           <MotionBox
             textAlign="center"
@@ -520,17 +526,19 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <Heading as="h3" fontSize="3xl" fontWeight="bold" mb={4} color="gray.900">
+            <Heading as="h3" fontSize="3xl" fontWeight="bold" mb={4} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
               Need help finding the right option?
             </Heading>
-            <Text fontSize="lg" color="gray.600" mb={6}>
+            <Text fontSize="lg" color="#555555" mb={6} fontFamily="'Poppins', sans-serif">
               Chat with us on WhatsApp for personalized assistance
             </Text>
             <Button
               as="a"
               href="https://wa.me/2348123456789"
               target="_blank"
-              colorPalette="green"
+              bg="#25D366"
+              color="white"
+              _hover={{ bg: "#1da851" }}
               size="lg"
               leftIcon={<MessageCircle />}
             >
@@ -541,71 +549,71 @@ export default function Home() {
       </AnimatedSection>
 
       {/* Footer */}
-      <Box bg="gray.900" color="white" py={12}>
+      <Box bg="#2C2C2C" color="white" py={12}>
         <Container maxW="7xl">
           <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8} mb={8}>
             <Box>
               <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="blue.400" />
-                <Text fontSize="2xl" fontWeight="bold">Ontour Travels</Text>
+                <Icon as={Plane} boxSize={8} color="#C9A449" />
+                <Text fontSize="2xl" fontWeight="bold" fontFamily="'Montserrat', sans-serif">Ontour Travels</Text>
               </HStack>
-              <Text color="gray.400" mb={4}>
+              <Text color="#E5E5E5" mb={4} fontFamily="'Open Sans', sans-serif">
                 Your trusted partner in creating unforgettable travel experiences around the world.
               </Text>
               <HStack gap={4}>
-                <Link href="#" _hover={{ color: "blue.400" }}>
+                <Link href="#" _hover={{ color: "#C9A449" }}>
                   <Icon as={Facebook} boxSize={5} />
                 </Link>
-                <Link href="#" _hover={{ color: "blue.400" }}>
+                <Link href="#" _hover={{ color: "#C9A449" }}>
                   <Icon as={Twitter} boxSize={5} />
                 </Link>
-                <Link href="#" _hover={{ color: "blue.400" }}>
+                <Link href="#" _hover={{ color: "#C9A449" }}>
                   <Icon as={Instagram} boxSize={5} />
                 </Link>
               </HStack>
             </Box>
 
             <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Quick Links</Heading>
+              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4} fontFamily="'Montserrat', sans-serif">Quick Links</Heading>
               <VStack align="start" gap={2}>
-                <Link href="/about" color="gray.400" _hover={{ color: "white" }}>About Us</Link>
-                <Link href="/book" color="gray.400" _hover={{ color: "white" }}>Flights & Hotels</Link>
-                <Link href="/shortlets" color="gray.400" _hover={{ color: "white" }}>Shortlets</Link>
-                <Link href="/tours" color="gray.400" _hover={{ color: "white" }}>Tours</Link>
+                <Link href="/about" color="#E5E5E5" _hover={{ color: "white" }} fontFamily="'Open Sans', sans-serif">About Us</Link>
+                <Link href="/book" color="#E5E5E5" _hover={{ color: "white" }} fontFamily="'Open Sans', sans-serif">Flights & Hotels</Link>
+                <Link href="/shortlets" color="#E5E5E5" _hover={{ color: "white" }} fontFamily="'Open Sans', sans-serif">Shortlets</Link>
+                <Link href="/tours" color="#E5E5E5" _hover={{ color: "white" }} fontFamily="'Open Sans', sans-serif">Tours</Link>
               </VStack>
             </Box>
 
             <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Support</Heading>
+              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4} fontFamily="'Montserrat', sans-serif">Support</Heading>
               <VStack align="start" gap={2}>
-                <Link href="/contact" color="gray.400" _hover={{ color: "white" }}>Contact Us</Link>
-                <Link href="#" color="gray.400" _hover={{ color: "white" }}>FAQ</Link>
-                <Link href="#" color="gray.400" _hover={{ color: "white" }}>Terms & Conditions</Link>
-                <Link href="#" color="gray.400" _hover={{ color: "white" }}>Privacy Policy</Link>
+                <Link href="/contact" color="#E5E5E5" _hover={{ color: "white" }} fontFamily="'Open Sans', sans-serif">Contact Us</Link>
+                <Link href="#" color="#E5E5E5" _hover={{ color: "white" }} fontFamily="'Open Sans', sans-serif">FAQ</Link>
+                <Link href="#" color="#E5E5E5" _hover={{ color: "white" }} fontFamily="'Open Sans', sans-serif">Terms & Conditions</Link>
+                <Link href="#" color="#E5E5E5" _hover={{ color: "white" }} fontFamily="'Open Sans', sans-serif">Privacy Policy</Link>
               </VStack>
             </Box>
 
             <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Contact Us</Heading>
+              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4} fontFamily="'Montserrat', sans-serif">Contact Us</Heading>
               <VStack align="start" gap={3}>
                 <HStack gap={2}>
-                  <Icon as={Phone} boxSize={4} color="blue.400" />
-                  <Text color="gray.400">+234 812 345 6789</Text>
+                  <Icon as={Phone} boxSize={4} color="#C9A449" />
+                  <Text color="#E5E5E5" fontFamily="'Open Sans', sans-serif">+234 812 345 6789</Text>
                 </HStack>
                 <HStack gap={2}>
-                  <Icon as={Mail} boxSize={4} color="blue.400" />
-                  <Text color="gray.400">info@ontourtravels.com.ng</Text>
+                  <Icon as={Mail} boxSize={4} color="#C9A449" />
+                  <Text color="#E5E5E5" fontFamily="'Open Sans', sans-serif">info@ontourtravels.com.ng</Text>
                 </HStack>
                 <HStack gap={2}>
-                  <Icon as={Clock} boxSize={4} color="blue.400" />
-                  <Text color="gray.400">Mon–Sat, 9 AM – 6 PM WAT</Text>
+                  <Icon as={Clock} boxSize={4} color="#C9A449" />
+                  <Text color="#E5E5E5" fontFamily="'Open Sans', sans-serif">Mon–Sat, 9 AM – 6 PM WAT</Text>
                 </HStack>
               </VStack>
             </Box>
           </Grid>
 
-          <Box borderTop="1px" borderColor="gray.800" pt={8} textAlign="center" color="gray.400">
-            <Text>&copy; 2024 Ontour Travels. All rights reserved. Made with <Text as="span" color="red.500">💓</Text> by <Link href="https://github.com/peldevon" target="_blank" rel="noopener noreferrer" _hover={{ color: "blue.400" }}>Peldevon</Link></Text>
+          <Box borderTop="1px" borderColor="gray.800" pt={8} textAlign="center" color="#E5E5E5">
+            <Text fontFamily="'Open Sans', sans-serif">&copy; 2024 Ontour Travels. All rights reserved. Made with <Text as="span" color="red.500">💓</Text> by <Link href="https://github.com/peldevon" target="_blank" rel="noopener noreferrer" _hover={{ color: "#C9A449" }}>Peldevon</Link></Text>
           </Box>
         </Container>
       </Box>
@@ -630,8 +638,8 @@ function TrustBadge({ icon, text }: { icon: any; text: string }) {
       textAlign="center"
     >
       <Flex direction="column" align="center" gap={2}>
-        <Icon as={icon} boxSize={10} color="blue.600" />
-        <Text fontSize="sm" fontWeight="medium" color="gray.700" maxW="150px">
+        <Icon as={icon} boxSize={10} color="#152852" />
+        <Text fontSize="sm" fontWeight="medium" color="#2C2C2C" maxW="150px" fontFamily="'Poppins', sans-serif">
           {text}
         </Text>
       </Flex>
@@ -659,24 +667,24 @@ function ShortletCard({ image, title, location, price, amenities }: any) {
       </Box>
       <Card.Body p={6}>
         <HStack gap={2} mb={2}>
-          <Icon as={MapPin} boxSize={4} color="blue.600" />
-          <Text fontSize="sm" color="gray.600">{location}</Text>
+          <Icon as={MapPin} boxSize={4} color="#152852" />
+          <Text fontSize="sm" color="#555555" fontFamily="'Open Sans', sans-serif">{location}</Text>
         </HStack>
-        <Heading as="h3" fontSize="xl" fontWeight="bold" mb={3} color="gray.900">
+        <Heading as="h3" fontSize="xl" fontWeight="bold" mb={3} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
           {title}
         </Heading>
         <HStack gap={2} mb={4} flexWrap="wrap">
           {amenities.map((amenity: string) => (
-            <Box key={amenity} px={2} py={1} bg="blue.50" borderRadius="md" fontSize="xs" color="blue.700">
+            <Box key={amenity} px={2} py={1} bg="#f7f4ed" borderRadius="md" fontSize="xs" color="#152852">
               {amenity}
             </Box>
           ))}
         </HStack>
         <Flex justify="space-between" align="center">
-          <Text fontSize="2xl" fontWeight="bold" color="blue.600">{price}</Text>
-          <Text fontSize="sm" color="gray.500">per night</Text>
+          <Text fontSize="2xl" fontWeight="bold" color="#152852" fontFamily="'Montserrat', sans-serif">{price}</Text>
+          <Text fontSize="sm" color="#555555" fontFamily="'Open Sans', sans-serif">per night</Text>
         </Flex>
-        <Button colorPalette="blue" w="full" mt={4} as="a" href="/shortlets">
+        <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} w="full" mt={4} as="a" href="/shortlets">
           View Details
         </Button>
       </Card.Body>
@@ -701,22 +709,22 @@ function TourCard({ image, title, duration, priceFrom, tag }: any) {
           h="full"
           objectFit="cover"
         />
-        <Box position="absolute" top={4} right={4} px={3} py={1} bg="blue.600" color="white" borderRadius="md" fontSize="sm">
+        <Box position="absolute" top={4} right={4} px={3} py={1} bg="#152852" color="white" borderRadius="md" fontSize="sm">
           {tag}
         </Box>
       </Box>
       <Card.Body p={6}>
-        <Heading as="h3" fontSize="xl" fontWeight="bold" mb={2} color="gray.900">
+        <Heading as="h3" fontSize="xl" fontWeight="bold" mb={2} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
           {title}
         </Heading>
-        <Text fontSize="sm" color="gray.600" mb={4}>{duration}</Text>
+        <Text fontSize="sm" color="#555555" mb={4} fontFamily="'Open Sans', sans-serif">{duration}</Text>
         <Flex justify="space-between" align="center" mb={4}>
           <Box>
-            <Text fontSize="xs" color="gray.500">From</Text>
-            <Text fontSize="2xl" fontWeight="bold" color="blue.600">{priceFrom}</Text>
+            <Text fontSize="xs" color="#555555" fontFamily="'Open Sans', sans-serif">From</Text>
+            <Text fontSize="2xl" fontWeight="bold" color="#152852" fontFamily="'Montserrat', sans-serif">{priceFrom}</Text>
           </Box>
         </Flex>
-        <Button colorPalette="blue" w="full" as="a" href="/tours">
+        <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} w="full" as="a" href="/tours">
           View Tour
         </Button>
       </Card.Body>
@@ -736,7 +744,7 @@ function ProcessStep({ number, icon, title, description }: any) {
             w={20}
             h={20}
             bg="white"
-            color="blue.600"
+            color="#152852"
             borderRadius="full"
             display="flex"
             alignItems="center"
@@ -750,7 +758,7 @@ function ProcessStep({ number, icon, title, description }: any) {
             right={-2}
             w={8}
             h={8}
-            bg="blue.400"
+            bg="#C9A449"
             color="white"
             borderRadius="full"
             display="flex"
@@ -762,10 +770,10 @@ function ProcessStep({ number, icon, title, description }: any) {
           </Box>
         </Box>
       </Flex>
-      <Heading as="h3" fontSize="xl" fontWeight="bold" mb={2}>
+      <Heading as="h3" fontSize="xl" fontWeight="bold" mb={2} fontFamily="'Montserrat', sans-serif">
         {title}
       </Heading>
-      <Text color="blue.100">
+      <Text color="#FAFAFA" fontFamily="'Open Sans', sans-serif">
         {description}
       </Text>
     </MotionBox>
@@ -783,17 +791,17 @@ function TestimonialCard({ name, location, avatar, rating, text }: any) {
       <Card.Body>
         <HStack gap={1} mb={4}>
           {Array.from({ length: rating }).map((_, i) => (
-            <Icon key={i} as={Star} boxSize={5} fill="yellow.400" color="yellow.400" />
+            <Icon key={i} as={Star} boxSize={5} fill="#C9A449" color="#C9A449" />
           ))}
         </HStack>
-        <Text color="gray.700" mb={6} fontStyle="italic">
+        <Text color="#2C2C2C" mb={6} fontStyle="italic" fontFamily="'Open Sans', sans-serif">
           "{text}"
         </Text>
         <HStack gap={4}>
           <Avatar name={name} src={avatar} />
           <Box>
-            <Text fontWeight="bold" color="gray.900">{name}</Text>
-            <Text fontSize="sm" color="gray.600">{location}</Text>
+            <Text fontWeight="bold" color="#2C2C2C" fontFamily="'Poppins', sans-serif">{name}</Text>
+            <Text fontSize="sm" color="#555555" fontFamily="'Open Sans', sans-serif">{location}</Text>
           </Box>
         </HStack>
       </Card.Body>
