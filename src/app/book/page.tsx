@@ -357,8 +357,8 @@ export default function BookPage() {
               target="_blank"
               colorPalette="green"
               size="lg"
-              leftIcon={<MessageCircle />}
             >
+              <MessageCircle />
               Chat on WhatsApp
             </Button>
           </Flex>
