@@ -11,12 +11,11 @@ import {
   Flex,
   VStack,
 } from "@chakra-ui/react";
-import {  FileText, Building, Map, Users } from "lucide-react";
+import { Building, Map, Users } from "lucide-react";
 import CMSLayout from "@/components/cms/CMSLayout";
 
 export default function CMSDashboard() {
   const [stats, setStats] = useState({
-    pages: 0,
     shortlets: 0,
     tours: 0,
     users: 0,
@@ -26,20 +25,17 @@ export default function CMSDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [pagesRes, shortletsRes, toursRes, usersRes] = await Promise.all([
-          fetch("/api/cms/pages"),
+        const [shortletsRes, toursRes, usersRes] = await Promise.all([
           fetch("/api/cms/shortlets"),
           fetch("/api/cms/tours"),
           fetch("/api/cms/users"),
         ]);
 
-        const pages = await pagesRes.json();
         const shortlets = await shortletsRes.json();
         const tours = await toursRes.json();
         const users = await usersRes.json();
 
         setStats({
-          pages: Array.isArray(pages) ? pages.length : 0,
           shortlets: Array.isArray(shortlets) ? shortlets.length : 0,
           tours: Array.isArray(tours) ? tours.length : 0,
           users: Array.isArray(users) ? users.length : 0,
@@ -55,13 +51,6 @@ export default function CMSDashboard() {
   }, []);
 
   const statCards = [
-    {
-      label: "Pages",
-      value: stats.pages,
-      icon: FileText,
-      color: "#152852",
-      bg: "#f0f0f0",
-    },
     {
       label: "Shortlets",
       value: stats.shortlets,
@@ -93,11 +82,11 @@ export default function CMSDashboard() {
             Welcome to Ontour Travels CMS
           </Heading>
           <Text color="gray.600">
-            Manage your website content, shortlets, and tour packages from this dashboard.
+            Manage your shortlets and tour packages from this dashboard.
           </Text>
         </Box>
 
-        <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)", lg: "repeat(4, 1fr)" }} gap={6}>
+        <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
           {statCards.map((stat) => (
             <Card.Root key={stat.label} bg={stat.bg} borderRadius="lg" p={6}>
               <Card.Body>
@@ -128,24 +117,7 @@ export default function CMSDashboard() {
             <Heading fontSize="lg" mb={4} color="#2C2C2C">
               Quick Links
             </Heading>
-            <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={4}>
-              <Box
-                as="a"
-                href="/cms/pages"
-                p={4}
-                borderRadius="md"
-                border="1px"
-                borderColor="#E5E5E5"
-                _hover={{ borderColor: "#152852", bg: "#f0f0f0" }}
-                transition="all 0.2s"
-              >
-                <Icon as={FileText} boxSize={6} color="#152852" mb={2} />
-                <Text fontWeight="medium" color="#2C2C2C">Manage Pages</Text>
-                <Text fontSize="sm" color="gray.600">
-                  Edit website content
-                </Text>
-              </Box>
-
+            <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
               <Box
                 as="a"
                 href="/cms/shortlets"

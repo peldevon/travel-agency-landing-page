@@ -5,34 +5,34 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import Image from "@tiptap/extension-image";
 import TextAlign from "@tiptap/extension-text-align";
-import { Color } from "@tiptap/extension-color";
 import { TextStyle } from "@tiptap/extension-text-style";
-import { useEffect } from "react";
+import { Box, Button, Flex, Input } from "@chakra-ui/react";
 import {
   Bold,
   Italic,
-  Underline,
+  Strikethrough,
   List,
   ListOrdered,
-  Link2,
-  Image as ImageIcon,
   AlignLeft,
   AlignCenter,
   AlignRight,
+  Link as LinkIcon,
+  Image as ImageIcon,
   Code,
 } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface RichTextEditorProps {
   value: string;
   onChange: (value: string) => void;
-  placeholder?: string;
 }
 
-export default function RichTextEditor({
-  value,
-  onChange,
-  placeholder = "Start typing...",
-}: RichTextEditorProps) {
+export default function RichTextEditor({ value, onChange }: RichTextEditorProps) {
+  const [showLinkInput, setShowLinkInput] = useState(false);
+  const [showImageInput, setShowImageInput] = useState(false);
+  const [linkUrl, setLinkUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -45,17 +45,10 @@ export default function RichTextEditor({
         types: ["heading", "paragraph"],
       }),
       TextStyle,
-      Color,
     ],
     content: value,
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
-    },
-    editorProps: {
-      attributes: {
-        class:
-          "prose prose-sm max-w-none focus:outline-none min-h-[300px] p-4",
-      },
     },
   });
 
@@ -115,7 +108,7 @@ export default function RichTextEditor({
           }`}
           title="Strikethrough"
         >
-          <Underline size={16} />
+          <Strikethrough size={16} />
         </button>
         
         <div className="w-px h-6 bg-gray-300 mx-1" />
@@ -184,7 +177,7 @@ export default function RichTextEditor({
           }`}
           title="Add Link"
         >
-          <Link2 size={16} />
+          <LinkIcon size={16} />
         </button>
         <button
           type="button"
