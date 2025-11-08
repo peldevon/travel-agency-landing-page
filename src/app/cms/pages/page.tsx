@@ -254,9 +254,9 @@ export default function CMSPages() {
                       <Select.ValueText placeholder="Select status" />
                     </Select.Trigger>
                     <Select.Content>
-                      <Select.Item value="draft">Draft</Select.Item>
-                      <Select.Item value="published">Published</Select.Item>
-                      <Select.Item value="archived">Archived</Select.Item>
+                      <Select.Item item="draft" value="draft">Draft</Select.Item>
+                      <Select.Item item="published" value="published">Published</Select.Item>
+                      <Select.Item item="archived" value="archived">Archived</Select.Item>
                     </Select.Content>
                   </Select.Root>
                 </Box>
