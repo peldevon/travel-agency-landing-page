@@ -170,7 +170,7 @@ export default function CMSDashboard() {
                 borderRadius="md"
                 border="1px"
                 borderColor="gray.200"
-                _hover={{ borderColor="purple.500", bg: "purple.50" }}
+                _hover={{ borderColor: "purple.500", bg: "purple.50" }}
                 transition="all 0.2s"
               >
                 <Icon as={Map} boxSize={6} color="purple.600" mb={2} />
