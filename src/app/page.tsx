@@ -108,10 +108,13 @@ export default function Home() {
         <Container maxW="7xl" py={4}>
           <Flex justify="space-between" align="center">
             <HStack gap={2}>
-              <Icon as={Plane} boxSize={8} color="#152852" />
-              <Text fontSize="2xl" fontWeight="bold" color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
-                Ontour Travels
-              </Text>
+              <Image 
+                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
+                alt="Ontour Travels Logo"
+                h="50px"
+                w="auto"
+                objectFit="contain"
+              />
             </HStack>
             <HStack gap={8} display={{ base: "none", md: "flex" }}>
               <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif">
@@ -554,8 +557,13 @@ export default function Home() {
           <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8} mb={8}>
             <Box>
               <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="#C9A449" />
-                <Text fontSize="2xl" fontWeight="bold" fontFamily="'Montserrat', sans-serif">Ontour Travels</Text>
+                <Image 
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
+                  alt="Ontour Travels Logo"
+                  h="40px"
+                  w="auto"
+                  objectFit="contain"
+                />
               </HStack>
               <Text color="#E5E5E5" mb={4} fontFamily="'Open Sans', sans-serif">
                 Your trusted partner in creating unforgettable travel experiences around the world.
