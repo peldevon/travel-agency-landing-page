@@ -485,24 +485,45 @@ export default function Home() {
       {/* Featured Shortlets - CAROUSEL */}
       <AnimatedSection bg="#FAFAFA">
         <Container maxW="7xl" py={20}>
-          <MotionBox
-            textAlign="center"
-            mb={12}
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
-              Lagos Shortlet Stays You'll Love
-            </Heading>
-            <Text fontSize="xl" color="#555555" fontFamily="'Poppins', sans-serif">
-              Flexible check-in, verified homes, responsive hosts.
-            </Text>
-          </MotionBox>
+          <Flex justify="space-between" align="center" mb={8}>
+            <Box>
+              <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={2} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
+                Featured Apartments
+              </Heading>
+              <Text fontSize="lg" color="#555555" fontFamily="'Poppins', sans-serif">
+                Hand-picked selection of quality apartments
+              </Text>
+            </Box>
+            
+            {/* Navigation Buttons - Top Right */}
+            <HStack gap={2} display={{ base: "none", md: "flex" }}>
+              <Button
+                onClick={scrollPrevShortlets}
+                variant="outline"
+                borderColor="#152852"
+                color="#152852"
+                _hover={{ bg: "#152852", color: "white" }}
+                size="sm"
+                px={6}
+              >
+                Prev
+              </Button>
+              <Button
+                onClick={scrollNextShortlets}
+                variant="outline"
+                borderColor="#152852"
+                color="#152852"
+                _hover={{ bg: "#152852", color: "white" }}
+                size="sm"
+                px={6}
+              >
+                Next
+              </Button>
+            </HStack>
+          </Flex>
 
           {/* Carousel Container */}
-          <Box position="relative" mb={10}>
+          <Box position="relative">
             <Box overflow="hidden" ref={shortletsEmblaRef}>
               <Flex gap={6}>
                 {shortlets.map((shortlet, index) => (
@@ -528,20 +549,21 @@ export default function Home() {
               </Flex>
             </Box>
 
-            {/* Navigation Buttons */}
+            {/* Mobile Navigation Buttons */}
             <IconButton
               position="absolute"
               left={-4}
               top="50%"
               transform="translateY(-50%)"
               onClick={scrollPrevShortlets}
-              bg="gray.200"
-              color="gray.700"
-              _hover={{ bg: "gray.300" }}
+              bg="white"
+              color="#152852"
+              _hover={{ bg: "#152852", color: "white" }}
               boxShadow="lg"
               borderRadius="full"
               zIndex={10}
               aria-label="Previous"
+              display={{ base: "flex", md: "none" }}
             >
               <ChevronLeft />
             </IconButton>
@@ -551,13 +573,14 @@ export default function Home() {
               top="50%"
               transform="translateY(-50%)"
               onClick={scrollNextShortlets}
-              bg="gray.200"
-              color="gray.700"
-              _hover={{ bg: "gray.300" }}
+              bg="white"
+              color="#152852"
+              _hover={{ bg: "#152852", color: "white" }}
               boxShadow="lg"
               borderRadius="full"
               zIndex={10}
               aria-label="Next"
+              display={{ base: "flex", md: "none" }}
             >
               <ChevronRight />
             </IconButton>
@@ -911,6 +934,8 @@ function ShortletCard({ slug, image, title, location, price, amenities }: any) {
       variants={fadeInUp}
       whileHover={{ y: -10, boxShadow: "xl" }}
       transition={{ duration: 0.3 }}
+      bg="white"
+      borderRadius="lg"
     >
       <Box position="relative" h="64" overflow="hidden">
         <Image 
@@ -920,32 +945,84 @@ function ShortletCard({ slug, image, title, location, price, amenities }: any) {
           h="full"
           objectFit="cover"
         />
+        
+        {/* FEATURED Badge - Top Left */}
+        <Box
+          position="absolute"
+          top={4}
+          left={4}
+          bg="#22C55E"
+          color="white"
+          px={3}
+          py={1}
+          fontSize="xs"
+          fontWeight="bold"
+          textTransform="uppercase"
+          letterSpacing="wide"
+        >
+          FEATURED
+        </Box>
+        
+        {/* Price Badge - Bottom Left */}
+        <Box
+          position="absolute"
+          bottom={4}
+          left={4}
+          bg="white"
+          px={4}
+          py={2}
+          borderRadius="md"
+          boxShadow="md"
+        >
+          <Text fontSize="2xl" fontWeight="bold" color="#152852" fontFamily="'Montserrat', sans-serif" lineHeight="1.2">
+            {price}<Text as="span" fontSize="sm" fontWeight="normal">/day</Text>
+          </Text>
+        </Box>
       </Box>
-      <Card.Body p={6}>
-        <HStack gap={2} mb={2}>
-          <Icon as={MapPin} boxSize={4} color="#152852" />
-          <Text fontSize="sm" color="#555555" fontFamily="'Open Sans', sans-serif">{location}</Text>
-        </HStack>
-        <Heading as="h3" fontSize="xl" fontWeight="bold" mb={3} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
+      <Card.Body p={5}>
+        <Heading as="h3" fontSize="lg" fontWeight="bold" mb={2} color="#2C2C2C" fontFamily="'Montserrat', sans-serif" noOfLines={1}>
           {title}
         </Heading>
-        <HStack gap={2} mb={4} flexWrap="wrap">
-          {amenities.map((amenity: string) => (
-            <Box key={amenity} px={2} py={1} bg="#f7f4ed" borderRadius="md" fontSize="xs" color="#152852">
-              {amenity}
-            </Box>
-          ))}
+        <HStack gap={2} mb={3}>
+          <Icon as={MapPin} boxSize={4} color="#555555" />
+          <Text fontSize="sm" color="#555555" fontFamily="'Open Sans', sans-serif" noOfLines={1}>{location}</Text>
         </HStack>
-        <Flex justify="space-between" align="center">
-          <Text fontSize="2xl" fontWeight="bold" color="#152852" fontFamily="'Montserrat', sans-serif">{price}</Text>
-          <Text fontSize="sm" color="#555555" fontFamily="'Open Sans', sans-serif">per night</Text>
-        </Flex>
+        
+        {/* Property Details Icons */}
+        <HStack gap={4} mb={3} color="#555555" fontSize="sm">
+          <HStack gap={1}>
+            <Icon as={Hotel} boxSize={4} />
+            <Text>2 Bedrooms</Text>
+          </HStack>
+          <HStack gap={1}>
+            <Icon as={Wind} boxSize={4} />
+            <Text>2 Baths</Text>
+          </HStack>
+          <HStack gap={1}>
+            <Icon as={Users} boxSize={4} />
+            <Text>4 Guests</Text>
+          </HStack>
+        </HStack>
+        
+        <Text fontSize="sm" color="#555555" mb={3} fontFamily="'Open Sans', sans-serif">
+          Apartment
+        </Text>
+        
+        {/* Rating */}
+        <HStack gap={1} mb={4}>
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Icon key={i} as={Star} boxSize={4} fill="#C9A449" color="#C9A449" />
+          ))}
+          <Text fontSize="sm" fontWeight="medium" color="#555555" ml={2}>
+            Excellent
+          </Text>
+        </HStack>
+        
         <Button 
           bg="#152852" 
           color="white" 
           _hover={{ bg: "#0d1a35" }} 
-          w="full" 
-          mt={4}
+          w="full"
           onClick={() => router.push(`/shortlets/${slug}`)}
         >
           View Details
