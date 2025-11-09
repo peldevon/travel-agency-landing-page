@@ -17,6 +17,7 @@ import {
   IconButton,
   Input,
   Tabs,
+  Drawer,
 } from "@chakra-ui/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -46,6 +47,7 @@ import {
   MessageCircle,
   ChevronLeft,
   ChevronRight,
+  X,
 } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
@@ -89,6 +91,7 @@ const scaleIn = {
 export default function Home() {
   const [searchType, setSearchType] = useState<"flights" | "hotels">("flights");
   const [tripType, setTripType] = useState<"round-trip" | "one-way">("round-trip");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const { scrollYProgress } = useScroll();
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
@@ -245,12 +248,57 @@ export default function Home() {
                 WhatsApp
               </Button>
             </HStack>
-            <IconButton display={{ base: "flex", md: "none" }} aria-label="Menu">
+            <IconButton 
+              display={{ base: "flex", md: "none" }} 
+              aria-label="Menu"
+              onClick={() => setMobileMenuOpen(true)}
+              variant="ghost"
+            >
               <Menu />
             </IconButton>
           </Flex>
         </Container>
       </MotionBox>
+
+      {/* Mobile Menu Drawer */}
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>Menu</Drawer.Title>
+              <Drawer.CloseTrigger asChild>
+                <IconButton variant="ghost" aria-label="Close">
+                  <X />
+                </IconButton>
+              </Drawer.CloseTrigger>
+            </Drawer.Header>
+            <Drawer.Body>
+              <VStack gap={4} align="stretch">
+                <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif" fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Flights & Hotels
+                </Link>
+                <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif" fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Shortlets
+                </Link>
+                <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif" fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Tours
+                </Link>
+                <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif" fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  About
+                </Link>
+                <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif" fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Contact
+                </Link>
+                <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
+                  <Icon as={MessageCircle} mr={2} />
+                  WhatsApp
+                </Button>
+              </VStack>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Drawer.Root>
 
       {/* Hero Section with Search */}
       <MotionBox
@@ -446,8 +494,11 @@ export default function Home() {
                     flex="0 0 100%"
                     minW={0}
                     css={{
-                      '@media (min-width: 768px)': {
+                      '@media (min-width: 480px)': {
                         flex: '0 0 50%'
+                      },
+                      '@media (min-width: 768px)': {
+                        flex: '0 0 33.333%'
                       },
                       '@media (min-width: 1024px)': {
                         flex: '0 0 33.333%'
@@ -467,8 +518,9 @@ export default function Home() {
               top="50%"
               transform="translateY(-50%)"
               onClick={scrollPrevShortlets}
-              bg="white"
-              _hover={{ bg: "gray.100" }}
+              bg="gray.200"
+              color="gray.700"
+              _hover={{ bg: "gray.300" }}
               boxShadow="lg"
               borderRadius="full"
               zIndex={10}
@@ -482,8 +534,9 @@ export default function Home() {
               top="50%"
               transform="translateY(-50%)"
               onClick={scrollNextShortlets}
-              bg="white"
-              _hover={{ bg: "gray.100" }}
+              bg="gray.200"
+              color="gray.700"
+              _hover={{ bg: "gray.300" }}
               boxShadow="lg"
               borderRadius="full"
               zIndex={10}
@@ -534,7 +587,7 @@ export default function Home() {
                     flex="0 0 100%"
                     minW={0}
                     css={{
-                      '@media (min-width: 640px)': {
+                      '@media (min-width: 480px)': {
                         flex: '0 0 50%'
                       },
                       '@media (min-width: 768px)': {
@@ -558,8 +611,9 @@ export default function Home() {
               top="50%"
               transform="translateY(-50%)"
               onClick={scrollPrevTours}
-              bg="white"
-              _hover={{ bg: "gray.100" }}
+              bg="gray.200"
+              color="gray.700"
+              _hover={{ bg: "gray.300" }}
               boxShadow="lg"
               borderRadius="full"
               zIndex={10}
@@ -573,8 +627,9 @@ export default function Home() {
               top="50%"
               transform="translateY(-50%)"
               onClick={scrollNextTours}
-              bg="white"
-              _hover={{ bg: "gray.100" }}
+              bg="gray.200"
+              color="gray.700"
+              _hover={{ bg: "gray.300" }}
               boxShadow="lg"
               borderRadius="full"
               zIndex={10}

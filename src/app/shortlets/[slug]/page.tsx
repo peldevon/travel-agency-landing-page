@@ -16,6 +16,8 @@ import {
   Card,
   Image,
   Link,
+  IconButton,
+  Drawer,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import {
@@ -36,6 +38,8 @@ import {
   Clock,
   AlertCircle,
   XCircle,
+  Menu,
+  X,
 } from "lucide-react";
 
 const MotionBox = motion.create(Box);
@@ -105,6 +109,7 @@ export default function ShortletDetailPage() {
   const [shortlet, setShortlet] = useState<Shortlet | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchShortlet = async () => {
@@ -157,7 +162,92 @@ export default function ShortletDetailPage() {
   const whatsappLink = `https://wa.me/2348123456789?text=${encodeURIComponent(shortlet.whatsapp_prefill)}`;
 
   return (
-    <Box minH="100vh" pt={20}>
+    <Box minH="100vh">
+      {/* Navigation Header - Now visible on mobile */}
+      <Box
+        position="sticky"
+        top={0}
+        zIndex={50}
+        bg="white"
+        boxShadow="sm"
+      >
+        <Container maxW="7xl" py={4}>
+          <Flex justify="space-between" align="center">
+            <HStack gap={2} as="a" href="/">
+              <Image 
+                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
+                alt="Ontour Travels Logo"
+                h="60px"
+                w="auto"
+                objectFit="contain"
+              />
+            </HStack>
+            <HStack gap={6} display={{ base: "none", md: "flex" }}>
+              <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }}>Home</Link>
+              <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }}>Flights & Hotels</Link>
+              <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }}>Tours</Link>
+              <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
+              <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
+              <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
+                <Icon as={MessageCircle} mr={1} />
+                WhatsApp
+              </Button>
+            </HStack>
+            <IconButton 
+              display={{ base: "flex", md: "none" }} 
+              aria-label="Menu"
+              onClick={() => setMobileMenuOpen(true)}
+              variant="ghost"
+            >
+              <Menu />
+            </IconButton>
+          </Flex>
+        </Container>
+      </Box>
+
+      {/* Mobile Menu Drawer */}
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>Menu</Drawer.Title>
+              <Drawer.CloseTrigger asChild>
+                <IconButton variant="ghost" aria-label="Close">
+                  <X />
+                </IconButton>
+              </Drawer.CloseTrigger>
+            </Drawer.Header>
+            <Drawer.Body>
+              <VStack gap={4} align="stretch">
+                <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Home
+                </Link>
+                <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Flights & Hotels
+                </Link>
+                <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Shortlets
+                </Link>
+                <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Tours
+                </Link>
+                <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  About
+                </Link>
+                <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Contact
+                </Link>
+                <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
+                  <Icon as={MessageCircle} mr={2} />
+                  WhatsApp
+                </Button>
+              </VStack>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Drawer.Root>
+
       {/* Back Button */}
       <Container maxW="7xl" py={4}>
         <Button
@@ -249,7 +339,8 @@ export default function ShortletDetailPage() {
                 </HStack>
               </HStack>
 
-              <HStack gap={6} flexWrap="wrap" color="gray.700">
+              {/* Combined Property Details with Check-in/Check-out */}
+              <Flex gap={6} flexWrap="wrap" color="gray.700" align="center">
                 <HStack gap={2}>
                   <Icon as={Home} color="blue.600" />
                   <Text>{shortlet.bedrooms} Bedroom{shortlet.bedrooms > 1 ? 's' : ''}</Text>
@@ -258,7 +349,15 @@ export default function ShortletDetailPage() {
                   <Icon as={Users} color="blue.600" />
                   <Text>Up to {shortlet.max_guests} guests</Text>
                 </HStack>
-              </HStack>
+                <HStack gap={2}>
+                  <Icon as={Clock} color="blue.600" />
+                  <Text>Check-in: {shortlet.policies.check_in}</Text>
+                </HStack>
+                <HStack gap={2}>
+                  <Icon as={Clock} color="orange.600" />
+                  <Text>Check-out: {shortlet.policies.check_out}</Text>
+                </HStack>
+              </Flex>
             </MotionBox>
 
             {/* Description */}

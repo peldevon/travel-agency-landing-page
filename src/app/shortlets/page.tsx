@@ -16,6 +16,7 @@ import {
   Link,
   Input,
   IconButton,
+  Drawer,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -36,6 +37,8 @@ import {
   CheckCircle,
   ChevronLeft,
   ChevronRight,
+  Menu,
+  X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -86,6 +89,7 @@ export default function ShortletsPage() {
   const router = useRouter();
   const [shortlets, setShortlets] = useState<Shortlet[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchShortlets = async () => {
@@ -136,9 +140,57 @@ export default function ShortletsPage() {
                 WhatsApp
               </Button>
             </HStack>
+            <IconButton 
+              display={{ base: "flex", md: "none" }} 
+              aria-label="Menu"
+              onClick={() => setMobileMenuOpen(true)}
+              variant="ghost"
+            >
+              <Menu />
+            </IconButton>
           </Flex>
         </Container>
       </Box>
+
+      {/* Mobile Menu Drawer */}
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>Menu</Drawer.Title>
+              <Drawer.CloseTrigger asChild>
+                <IconButton variant="ghost" aria-label="Close">
+                  <X />
+                </IconButton>
+              </Drawer.CloseTrigger>
+            </Drawer.Header>
+            <Drawer.Body>
+              <VStack gap={4} align="stretch">
+                <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Home
+                </Link>
+                <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Flights & Hotels
+                </Link>
+                <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Tours
+                </Link>
+                <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  About
+                </Link>
+                <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Contact
+                </Link>
+                <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
+                  <Icon as={MessageCircle} mr={2} />
+                  WhatsApp
+                </Button>
+              </VStack>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Drawer.Root>
 
       {/* Hero Section */}
       <MotionBox
@@ -485,8 +537,9 @@ function PropertyCard({ property, router }: { property: Shortlet; router: any })
               top="50%"
               transform="translateY(-50%)"
               onClick={prevImage}
-              bg="whiteAlpha.900"
-              _hover={{ bg: "white" }}
+              bg="gray.200"
+              color="gray.700"
+              _hover={{ bg: "gray.300" }}
               size="sm"
               borderRadius="full"
               aria-label="Previous image"
@@ -499,8 +552,9 @@ function PropertyCard({ property, router }: { property: Shortlet; router: any })
               top="50%"
               transform="translateY(-50%)"
               onClick={nextImage}
-              bg="whiteAlpha.900"
-              _hover={{ bg: "white" }}
+              bg="gray.200"
+              color="gray.700"
+              _hover={{ bg: "gray.300" }}
               size="sm"
               borderRadius="full"
               aria-label="Next image"
