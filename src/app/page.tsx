@@ -94,16 +94,16 @@ export default function Home() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.95]);
 
-  // Shortlets carousel
+  // Shortlets carousel with more items
   const [shortletsEmblaRef, shortletsEmblaApi] = useEmblaCarousel(
-    { loop: true, align: "start" },
+    { loop: true, align: "start", slidesToScroll: 1 },
     [Autoplay({ delay: 3000, stopOnInteraction: false })]
   );
 
-  // Tours carousel
+  // Tours carousel with more items
   const [toursEmblaRef, toursEmblaApi] = useEmblaCarousel(
-    { loop: true, align: "start" },
-    [Autoplay({ delay: 3000, stopOnInteraction: false })]
+    { loop: true, align: "start", slidesToScroll: 1 },
+    [Autoplay({ delay: 3500, stopOnInteraction: false })]
   );
 
   const scrollPrevShortlets = useCallback(() => {
@@ -122,7 +122,7 @@ export default function Home() {
     if (toursEmblaApi) toursEmblaApi.scrollNext();
   }, [toursEmblaApi]);
 
-  // Sample shortlets data
+  // Expanded shortlets data - 8 listings
   const shortlets = [
     {
       image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&q=80",
@@ -158,10 +158,31 @@ export default function Home() {
       location: "Ajah, Lagos",
       price: "₦55,000",
       amenities: ["Wi-Fi", "AC", "Parking", "Generator"]
+    },
+    {
+      image: "https://images.unsplash.com/photo-1515263487990-61b07816b324?w=600&q=80",
+      title: "Spacious 3BR – Banana Island",
+      location: "Banana Island, Lagos",
+      price: "₦200,000",
+      amenities: ["Wi-Fi", "AC", "Pool", "Beach Access"]
+    },
+    {
+      image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=600&q=80",
+      title: "Modern Loft – Yaba",
+      location: "Yaba, Lagos",
+      price: "₦40,000",
+      amenities: ["Wi-Fi", "AC", "Co-working", "Kitchen"]
+    },
+    {
+      image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=80",
+      title: "Deluxe 2BR – Lekki Phase 2",
+      location: "Lekki, Lagos",
+      price: "₦65,000",
+      amenities: ["Wi-Fi", "AC", "Gym", "24/7 Power"]
     }
   ];
 
-  // Sample tours data - Updated with destinations matching reference
+  // Expanded tours data - 8 destinations
   const tours = [
     {
       image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",
@@ -190,6 +211,34 @@ export default function Home() {
       location: "Indian Ocean",
       priceFrom: "3,200",
       description: "Pristine waters and overwater bungalows"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80",
+      title: "Paris",
+      location: "France",
+      priceFrom: "1,900",
+      description: "The city of love, art, and exquisite cuisine"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1513581166391-887a96ddeafd?w=600&q=80",
+      title: "Santorini",
+      location: "Greece",
+      priceFrom: "2,300",
+      description: "Iconic white buildings and stunning sunsets"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1580837119756-563d608dd119?w=600&q=80",
+      title: "Tokyo",
+      location: "Japan",
+      priceFrom: "2,500",
+      description: "Ancient traditions meet futuristic technology"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=80",
+      title: "Cape Town",
+      location: "South Africa",
+      priceFrom: "1,600",
+      description: "Stunning landscapes and diverse wildlife"
     }
   ];
 
@@ -413,7 +462,7 @@ export default function Home() {
         </Container>
       </AnimatedSection>
 
-      {/* Featured Shortlets - CAROUSEL */}
+      {/* Featured Shortlets - ENHANCED CAROUSEL */}
       <AnimatedSection bg="#FAFAFA">
         <Container maxW="7xl" py={20}>
           <MotionBox
@@ -433,22 +482,14 @@ export default function Home() {
           </MotionBox>
 
           {/* Carousel Container */}
-          <Box position="relative" mb={10}>
+          <Box position="relative" mb={10} px={{ base: 0, md: 8 }}>
             <Box overflow="hidden" ref={shortletsEmblaRef}>
-              <Flex gap={6}>
+              <Flex gap={{ base: 4, md: 6 }}>
                 {shortlets.map((shortlet, index) => (
                   <Box
                     key={index}
-                    flex="0 0 100%"
+                    flex={{ base: "0 0 90%", sm: "0 0 45%", md: "0 0 45%", lg: "0 0 30%" }}
                     minW={0}
-                    css={{
-                      '@media (min-width: 768px)': {
-                        flex: '0 0 50%'
-                      },
-                      '@media (min-width: 1024px)': {
-                        flex: '0 0 33.333%'
-                      }
-                    }}
                   >
                     <ShortletCard {...shortlet} />
                   </Box>
@@ -459,33 +500,37 @@ export default function Home() {
             {/* Navigation Buttons */}
             <IconButton
               position="absolute"
-              left={-4}
+              left={{ base: 0, md: -2 }}
               top="50%"
               transform="translateY(-50%)"
               onClick={scrollPrevShortlets}
               bg="white"
-              _hover={{ bg: "gray.100" }}
+              _hover={{ bg: "gray.200" }}
               boxShadow="lg"
               borderRadius="full"
               zIndex={10}
               aria-label="Previous"
+              display={{ base: "flex", md: "flex" }}
+              color="#555555"
             >
-              <ChevronLeft />
+              <ChevronLeft color="#555555" />
             </IconButton>
             <IconButton
               position="absolute"
-              right={-4}
+              right={{ base: 0, md: -2 }}
               top="50%"
               transform="translateY(-50%)"
               onClick={scrollNextShortlets}
               bg="white"
-              _hover={{ bg: "gray.100" }}
+              _hover={{ bg: "gray.200" }}
               boxShadow="lg"
               borderRadius="full"
               zIndex={10}
               aria-label="Next"
+              display={{ base: "flex", md: "flex" }}
+              color="#555555"
             >
-              <ChevronRight />
+              <ChevronRight color="#555555" />
             </IconButton>
           </Box>
 
@@ -497,7 +542,7 @@ export default function Home() {
         </Container>
       </AnimatedSection>
 
-      {/* Travel Destinations Showcase - NEW GRID STRUCTURE */}
+      {/* Travel Destinations Showcase - ENHANCED CAROUSEL WITHIN GRID */}
       <AnimatedSection bg="white">
         <Container maxW="7xl" py={20}>
           {/* Main CSS Grid Wrapper */}
@@ -531,9 +576,9 @@ export default function Home() {
               </Text>
             </Flex>
 
-            {/* Column 2: Content Area with Inner Grid */}
+            {/* Column 2: Content Area with Carousel */}
             <Box p={{ base: 4, md: 8 }}>
-              {/* Inner Grid for Cards */}
+              {/* Carousel for Tour Cards */}
               <Box position="relative">
                 <Box overflow="hidden" ref={toursEmblaRef}>
                   <Flex>
@@ -544,8 +589,11 @@ export default function Home() {
                         minW={0}
                         px={2}
                         css={{
-                          '@media (min-width: 768px)': {
+                          '@media (min-width: 640px)': {
                             flex: '0 0 50%'
+                          },
+                          '@media (min-width: 768px)': {
+                            flex: '0 0 33.333%'
                           },
                           '@media (min-width: 1024px)': {
                             flex: '0 0 25%'
