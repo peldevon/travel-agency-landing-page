@@ -6,12 +6,18 @@ import {
   Heading,
   Text,
   VStack,
-  Link,
-  Grid,
   HStack,
   Icon,
+  Link,
+  Button,
+  IconButton,
+  Image,
+  Drawer,
+  Flex,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { FileText, MessageCircle, Menu, X, Home } from "lucide-react";
+import { useState } from "react";
 
 const MotionBox = motion.create(Box);
 
@@ -21,305 +27,364 @@ const fadeInUp = {
 };
 
 export default function TermsPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <Box minH="100vh" pt={20}>
+    <Box minH="100vh">
+      {/* Navigation Header */}
+      <Box position="sticky" top={0} zIndex={50} bg="white" boxShadow="sm">
+        <Container maxW="7xl" py={4}>
+          <Flex justify="space-between" align="center">
+            <HStack gap={2} as="a" href="/">
+              <Image 
+                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
+                alt="Ontour Travels Logo"
+                h="60px"
+                w="auto"
+                objectFit="contain"
+              />
+            </HStack>
+            <HStack gap={6} display={{ base: "none", md: "flex" }}>
+              <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }}>Home</Link>
+              <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }}>Flights & Hotels</Link>
+              <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }}>Shortlets</Link>
+              <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }}>Tours</Link>
+              <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
+              <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
+              <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
+                <Icon as={MessageCircle} mr={1} />
+                WhatsApp
+              </Button>
+            </HStack>
+            <IconButton 
+              display={{ base: "flex", md: "none" }} 
+              aria-label="Menu"
+              onClick={() => setMobileMenuOpen(true)}
+              variant="ghost"
+            >
+              <Menu />
+            </IconButton>
+          </Flex>
+        </Container>
+      </Box>
+
+      {/* Mobile Menu Drawer */}
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>Menu</Drawer.Title>
+              <Drawer.CloseTrigger asChild>
+                <IconButton variant="ghost" aria-label="Close">
+                  <X />
+                </IconButton>
+              </Drawer.CloseTrigger>
+            </Drawer.Header>
+            <Drawer.Body>
+              <VStack gap={4} align="stretch">
+                <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+                <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Flights & Hotels</Link>
+                <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Shortlets</Link>
+                <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Tours</Link>
+                <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>About</Link>
+                <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+                <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
+                  <Icon as={MessageCircle} mr={2} />
+                  WhatsApp
+                </Button>
+              </VStack>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Drawer.Root>
+
       {/* Hero Section */}
-      <Box bg="gray.900" color="white" py={16}>
+      <Box bg="#152852" color="white" py={16}>
         <Container maxW="5xl" textAlign="center">
           <MotionBox variants={fadeInUp} initial="hidden" animate="visible">
-            <Heading as="h1" fontSize={{ base: "4xl", md: "5xl" }} mb={4}>
+            <Icon as={FileText} boxSize={16} mx="auto" mb={4} color="#C9A449" />
+            <Heading as="h1" fontSize={{ base: "4xl", md: "5xl" }} mb={4} fontFamily="'Montserrat', sans-serif">
               Terms & Conditions
             </Heading>
-            <Text fontSize="lg" color="gray.300">
-              Last updated: January 2024
+            <Text fontSize="lg" color="#FAFAFA" fontFamily="'Poppins', sans-serif">
+              Last updated: January 2025
             </Text>
           </MotionBox>
         </Container>
       </Box>
 
-      {/* Terms Content */}
-      <Container maxW="5xl" py={16}>
+      {/* Content */}
+      <Container maxW="4xl" py={16}>
         <VStack gap={8} align="stretch">
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Text color="gray.700" fontSize="lg" mb={8}>
-              Welcome to Ontour Travels. By accessing or using our website and services, you agree to comply with and be bound by the following terms and conditions. Please read these carefully before making any bookings.
-            </Text>
+            <Box bg="blue.50" p={6} borderRadius="lg" mb={8} borderLeft="4px solid" borderColor="blue.600">
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                By accessing and using the Ontour Travels website (ontourtravels.com.ng) and our services, you accept and agree to be bound by these Terms and Conditions. Please read them carefully before making any booking.
+              </Text>
+            </Box>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
               1. General Terms
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>1.1 Company Information:</strong> Ontour Travels is a registered travel agency operating in Nigeria, providing flight bookings, hotel reservations, shortlet accommodations, tour packages, and related travel services.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>1.1</strong> Ontour Travels ("we", "us", "our") is a registered travel agency operating in Nigeria, providing flight ticketing, hotel bookings, shortlet accommodations, and tour package services.
               </Text>
-              <Text color="gray.700">
-                <strong>1.2 Acceptance of Terms:</strong> By using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions, along with our Privacy Policy.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>1.2</strong> These terms apply to all bookings made through our website, WhatsApp, phone, or email.
               </Text>
-              <Text color="gray.700">
-                <strong>1.3 Changes to Terms:</strong> We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting on our website. Continued use of our services after changes constitutes acceptance of the modified terms.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>1.3</strong> By making a booking, you confirm that you are at least 18 years old and have the legal capacity to enter into a binding contract.
               </Text>
-              <Text color="gray.700">
-                <strong>1.4 Eligibility:</strong> You must be at least 18 years old to make bookings through our platform. By booking, you confirm that you are legally able to enter into binding contracts.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>1.4</strong> We reserve the right to amend these terms at any time. The version in effect at the time of your booking will apply to your transaction.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              2. Booking & Payment
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              2. Bookings & Payments
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>2.1 Booking Process:</strong> All bookings are subject to availability and confirmation. A booking is only confirmed once full payment (or deposit where applicable) has been received and a confirmation email/WhatsApp message has been sent.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>2.1 Booking Confirmation:</strong> A booking is only confirmed once full payment (or deposit, where applicable) is received and you receive a booking confirmation via email or WhatsApp.
               </Text>
-              <Text color="gray.700">
-                <strong>2.2 Pricing:</strong> All prices are displayed in Nigerian Naira (NGN) or US Dollars (USD) as indicated. Prices are subject to change without notice until booking is confirmed and paid. Prices include applicable taxes unless otherwise stated.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>2.2 Payment Methods:</strong> We accept payments via Paystack and Flutterwave (bank cards, bank transfers, USSD). All transactions are processed in Nigerian Naira (NGN) or US Dollars (USD).
               </Text>
-              <Text color="gray.700">
-                <strong>2.3 Payment Methods:</strong> We accept payments via Paystack and Flutterwave (credit/debit cards). All payments are processed securely through PCI-DSS compliant gateways.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>2.3 Payment Schedule:</strong> For flights and hotels: Full payment required at booking. For tour packages: 50% deposit to secure booking; balance due 14-30 days before departure (as specified in your booking confirmation).
               </Text>
-              <Text color="gray.700">
-                <strong>2.4 Payment Schedule:</strong> For tour packages, a 50% deposit is typically required to secure the booking, with the balance due 14-30 days before departure (specific terms will be communicated). Full payment is required for flights and hotels at the time of booking.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>2.4 Pricing:</strong> All prices displayed on our website are indicative and subject to availability at the time of booking. Flight and hotel prices fluctuate in real-time and may change between search and purchase.
               </Text>
-              <Text color="gray.700">
-                <strong>2.5 Currency Fluctuations:</strong> For international bookings, prices quoted in USD may be subject to exchange rate fluctuations. The final amount charged will be based on the exchange rate at the time of payment processing.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>2.5 Price Guarantee:</strong> Once you receive a booking confirmation and make full payment, the price is locked in and will not change (except in cases of government-imposed taxes or airline fuel surcharges beyond our control).
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              3. Cancellations & Refunds
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              3. Flights & Airlines
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>3.1 Flights:</strong> Flight cancellation policies are set by airlines and vary by ticket type. Economy tickets are typically non-refundable or subject to high cancellation fees. We will assist with cancellations but cannot guarantee refunds. Airline policies apply.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.1 Third-Party Services:</strong> We act as an agent for airlines. Flight bookings are subject to the terms and conditions of the respective airline, including baggage policies, check-in requirements, and cancellation policies.
               </Text>
-              <Text color="gray.700">
-                <strong>3.2 Hotels:</strong> Hotel cancellation policies vary by property and rate type. Most bookings allow free cancellation up to 24-72 hours before check-in. Non-refundable rates cannot be cancelled or modified. Specific policies will be communicated at booking.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.2 Flight Changes:</strong> Changes to flight dates, routes, or passenger names are subject to the airline's change policies and fees. We will assist with change requests but cannot guarantee acceptance.
               </Text>
-              <Text color="gray.700">
-                <strong>3.3 Tours:</strong> Tour package cancellations are subject to the following: Cancellations 30+ days before departure: 50% refund. Cancellations 15-30 days before: 25% refund. Less than 15 days: non-refundable. Flight tickets within packages are non-refundable once issued.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.3 Cancellations:</strong> Flight cancellations are governed by the airline's fare rules. Non-refundable tickets cannot be refunded; partially refundable tickets may incur penalties. We will process eligible refunds minus our service fee (₦5,000-10,000).
               </Text>
-              <Text color="gray.700">
-                <strong>3.4 Shortlets:</strong> Shortlet cancellations vary by property. Typical policy: Free cancellation 7 days before check-in, 50% refund if cancelled 3-7 days before, no refund within 3 days of check-in. Security deposits are always refundable subject to property inspection.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.4 Delays & Disruptions:</strong> We are not liable for airline delays, cancellations, or schedule changes. Contact the airline directly for rebooking or compensation. We will assist where possible.
               </Text>
-              <Text color="gray.700">
-                <strong>3.5 Refund Processing:</strong> Approved refunds will be processed within 14-30 business days to the original payment method. Bank processing times may vary.
-              </Text>
-              <Text color="gray.700">
-                <strong>3.6 Service Fees:</strong> Ontour Travels service fees are non-refundable in all cancellation scenarios.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.5 Travel Documents:</strong> You are responsible for ensuring you have valid passports, visas, and all required travel documents. We provide visa support but do not guarantee visa approval.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              4. Changes & Modifications
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              4. Hotels & Accommodation
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>4.1 Customer-Initiated Changes:</strong> Requests to change dates, names, or other booking details must be submitted as soon as possible. Changes are subject to availability and may incur fees from airlines, hotels, or tour operators, plus an administrative fee from Ontour Travels.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>4.1 Hotel Bookings:</strong> Hotel reservations are subject to the hotel's terms and conditions, including check-in/check-out times, cancellation policies, and additional fees (e.g., resort fees, city taxes).
               </Text>
-              <Text color="gray.700">
-                <strong>4.2 Name Changes:</strong> Flight ticket name changes are generally not permitted. Minor corrections (spelling errors) may be possible with airline fees. Hotel and tour bookings allow name changes subject to availability and potential fees.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>4.2 Cancellations:</strong> Cancellation policies vary by hotel and rate type. Non-refundable rates cannot be cancelled. Refundable rates typically allow free cancellation 24-48 hours before check-in. Late cancellations or no-shows may incur penalties.
               </Text>
-              <Text color="gray.700">
-                <strong>4.3 Company-Initiated Changes:</strong> In rare cases, we may need to modify your booking due to circumstances beyond our control (airline schedule changes, hotel overbooking, etc.). We will notify you immediately and offer alternatives or full refunds.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>4.3 Special Requests:</strong> Requests for specific rooms, beds, floors, or amenities are noted but not guaranteed. Hotels will accommodate when possible.
+              </Text>
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>4.4 Disputes:</strong> For issues during your stay (cleanliness, service, etc.), contact the hotel directly first. If unresolved, contact us immediately and we'll assist.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              5. Travel Documents & Visas
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              5. Shortlets
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>5.1 Passport Validity:</strong> You are responsible for ensuring your passport is valid for at least 6 months beyond your return date. Ontour Travels is not liable for denied boarding due to invalid travel documents.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>5.1 Booking & Payment:</strong> Shortlet bookings require full payment or a 50% deposit (remainder due before check-in). A refundable security deposit is typically required (₦30,000-100,000 depending on property).
               </Text>
-              <Text color="gray.700">
-                <strong>5.2 Visas:</strong> You are responsible for obtaining all required visas and travel permits. We provide visa support and guidance but cannot guarantee visa approval. Visa fees and embassy charges are separate from our service fees.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>5.2 Cancellation Policy:</strong> Cancellations 7+ days before check-in receive a full refund minus a 10% admin fee. Cancellations 3-7 days before check-in receive a 50% refund. Cancellations less than 3 days before check-in are non-refundable.
               </Text>
-              <Text color="gray.700">
-                <strong>5.3 Health Requirements:</strong> You must comply with all health requirements (vaccinations, COVID-19 tests, etc.) for your destination. Check requirements well in advance and obtain necessary certificates.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>5.3 Property Use:</strong> Properties must be used for accommodation only. No parties, events, or commercial activities without prior written permission. Maximum occupancy limits must be respected.
               </Text>
-              <Text color="gray.700">
-                <strong>5.4 Entry Denial:</strong> Ontour Travels is not responsible if you are denied entry to any country due to improper documentation, visa issues, or any other reason. No refunds will be issued in such cases.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>5.4 Damages:</strong> Guests are responsible for any damage beyond normal wear and tear. Repair costs will be deducted from the security deposit. Damages exceeding the deposit must be paid before check-out.
+              </Text>
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>5.5 House Rules:</strong> Guests must comply with property-specific house rules (provided at booking). Violations may result in immediate eviction without refund.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              6. Liability & Insurance
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              6. Tours & Packages
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>6.1 Role as Agent:</strong> Ontour Travels acts as an agent for airlines, hotels, tour operators, and other service providers. We are not liable for their acts, errors, omissions, or defaults.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>6.1 Tour Inclusions:</strong> Each tour listing clearly states what is included (flights, accommodation, meals, activities, etc.) and excluded. Read carefully before booking.
               </Text>
-              <Text color="gray.700">
-                <strong>6.2 Limitations:</strong> Our liability is limited to the fees paid to Ontour Travels for our services. We are not liable for indirect, consequential, or punitive damages including lost profits, missed connections, or travel disruptions.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>6.2 Payment Schedule:</strong> 50% deposit due at booking to secure your spot. Balance due 14-30 days before departure. Late payment may result in booking cancellation without refund.
               </Text>
-              <Text color="gray.700">
-                <strong>6.3 Force Majeure:</strong> We are not liable for failures or delays caused by events beyond our reasonable control including natural disasters, pandemics, strikes, war, terrorism, or government actions.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>6.3 Cancellation by Customer:</strong> Cancellations 30+ days before departure forfeit the deposit only. Cancellations 14-30 days before departure forfeit 50% of total cost. Cancellations less than 14 days before departure are non-refundable.
               </Text>
-              <Text color="gray.700">
-                <strong>6.4 Travel Insurance:</strong> We strongly recommend purchasing comprehensive travel insurance covering trip cancellation, medical emergencies, lost luggage, and other unforeseen events. Travel insurance is optional but highly advised.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>6.4 Cancellation by Us:</strong> We reserve the right to cancel a tour due to insufficient bookings, safety concerns, or unforeseen circumstances. In such cases, you receive a full refund or the option to rebook a different tour.
               </Text>
-              <Text color="gray.700">
-                <strong>6.5 Personal Belongings:</strong> You are responsible for your personal belongings throughout your trip. Ontour Travels is not liable for lost, stolen, or damaged items.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>6.5 Itinerary Changes:</strong> We reserve the right to make minor changes to tour itineraries for operational or safety reasons. Significant changes will be communicated in advance.
+              </Text>
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>6.6 Travel Insurance:</strong> We strongly recommend purchasing travel insurance to cover trip cancellations, medical emergencies, lost luggage, and travel disruptions.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              7. Customer Responsibilities
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              7. Liability & Responsibilities
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>7.1 Accurate Information:</strong> You must provide accurate, complete, and truthful information when making bookings. Errors in passenger names, dates, or other details may result in additional fees or booking cancellation.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>7.1 Our Role:</strong> We act as an intermediary between you and travel service providers (airlines, hotels, tour operators). We are not liable for their actions, omissions, or failures to deliver services.
               </Text>
-              <Text color="gray.700">
-                <strong>7.2 Check-in Requirements:</strong> You must comply with all check-in requirements for flights (typically 3 hours before international flights, 90 minutes for domestic). Late arrival may result in denied boarding with no refund.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>7.2 Accuracy of Information:</strong> We strive to provide accurate information on our website, but details (prices, availability, descriptions) are provided by third parties and may change without notice.
               </Text>
-              <Text color="gray.700">
-                <strong>7.3 Conduct:</strong> You agree to conduct yourself responsibly and respectfully during your travels. Unruly behavior may result in removal from flights, hotels, or tours with no refund.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>7.3 Personal Responsibility:</strong> You are responsible for your personal safety, health, and belongings during travel. We are not liable for injury, illness, loss, or damage incurred during your trip.
               </Text>
-              <Text color="gray.700">
-                <strong>7.4 Shortlet Properties:</strong> For shortlet bookings, you must treat the property with care, follow house rules, and report any damages immediately. You are liable for any damages beyond normal wear and tear.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>7.4 Force Majeure:</strong> We are not liable for failure to fulfill our obligations due to circumstances beyond our control (natural disasters, pandemics, wars, strikes, government actions, etc.).
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
               8. Intellectual Property
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>8.1 Website Content:</strong> All content on our website (text, images, logos, designs) is the property of Ontour Travels or licensed partners. Unauthorized use, reproduction, or distribution is prohibited.
-              </Text>
-              <Text color="gray.700">
-                <strong>8.2 Trademarks:</strong> "Ontour Travels" and associated logos are trademarks of our company. Use without permission is prohibited.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>8.1</strong> All content on our website (text, images, logos, design) is our property or licensed to us. You may not copy, reproduce, or distribute our content without written permission.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              9. Privacy & Data Protection
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              9. Data Protection & Privacy
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>9.1 Data Collection:</strong> We collect and process personal information as described in our Privacy Policy. By using our services, you consent to such collection and use.
-              </Text>
-              <Text color="gray.700">
-                <strong>9.2 Third-Party Sharing:</strong> We share necessary information with airlines, hotels, tour operators, and payment processors to fulfill your bookings. We do not sell your personal data.
-              </Text>
-              <Text color="gray.700">
-                <strong>9.3 Communications:</strong> By booking, you consent to receive booking confirmations, updates, and promotional communications via email, SMS, or WhatsApp. You can opt out of promotional messages at any time.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>9.1</strong> Your personal information is handled according to our Privacy Policy. By using our services, you consent to the collection and use of your information as described in the Privacy Policy.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              10. Dispute Resolution
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              10. Complaints & Disputes
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>10.1 Complaints:</strong> If you have a complaint, contact us immediately via WhatsApp, email, or phone. We will make every effort to resolve issues quickly and fairly.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>10.1</strong> If you have a complaint, contact us within 7 days of the issue occurring. We'll work to resolve it promptly and fairly.
               </Text>
-              <Text color="gray.700">
-                <strong>10.2 Governing Law:</strong> These Terms & Conditions are governed by the laws of the Federal Republic of Nigeria. Any disputes will be subject to the exclusive jurisdiction of Nigerian courts.
-              </Text>
-              <Text color="gray.700">
-                <strong>10.3 Mediation:</strong> We encourage resolving disputes through good-faith negotiation or mediation before resorting to formal legal proceedings.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>10.2</strong> If a dispute cannot be resolved amicably, it will be governed by the laws of Nigeria and subject to the jurisdiction of Nigerian courts.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              11. Miscellaneous
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              11. Contact Information
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>11.1 Severability:</strong> If any provision of these terms is found to be invalid or unenforceable, the remaining provisions will continue in full force and effect.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                For questions about these Terms & Conditions, contact us:
               </Text>
-              <Text color="gray.700">
-                <strong>11.2 Entire Agreement:</strong> These Terms & Conditions, along with our Privacy Policy, constitute the entire agreement between you and Ontour Travels regarding our services.
-              </Text>
-              <Text color="gray.700">
-                <strong>11.3 No Waiver:</strong> Our failure to enforce any provision does not constitute a waiver of that provision or any other provision.
-              </Text>
+              <VStack align="start" gap={2} pl={4}>
+                <Text color="gray.700" fontFamily="'Open Sans', sans-serif">
+                  <strong>Email:</strong> info@ontourtravels.com.ng
+                </Text>
+                <Text color="gray.700" fontFamily="'Open Sans', sans-serif">
+                  <strong>Phone:</strong> +234 812 345 6789
+                </Text>
+                <Text color="gray.700" fontFamily="'Open Sans', sans-serif">
+                  <strong>WhatsApp:</strong> +234 812 345 6789
+                </Text>
+                <Text color="gray.700" fontFamily="'Open Sans', sans-serif">
+                  <strong>Office:</strong> Lagos, Nigeria
+                </Text>
+              </VStack>
             </VStack>
           </MotionBox>
 
-          <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              12. Contact Information
-            </Heading>
-            <Text color="gray.700" mb={3}>
-              For questions about these Terms & Conditions, please contact us:
-            </Text>
-            <VStack gap={2} align="stretch" color="gray.700">
-              <Text><strong>Email:</strong> info@ontourtravels.com.ng</Text>
-              <Text><strong>Phone:</strong> +234 812 345 6789</Text>
-              <Text><strong>WhatsApp:</strong> +234 812 345 6789</Text>
-              <Text><strong>Address:</strong> Lagos, Nigeria</Text>
-            </VStack>
-          </MotionBox>
-
-          <Box borderTop="1px solid" borderColor="gray.200" pt={8}>
-            <Text fontSize="sm" color="gray.600" textAlign="center">
-              By proceeding with a booking, you acknowledge that you have read, understood, and agree to these Terms & Conditions.
+          <Box bg="yellow.50" p={6} borderRadius="lg" borderLeft="4px solid" borderColor="yellow.500">
+            <Text color="gray.700" fontStyle="italic" fontFamily="'Open Sans', sans-serif">
+              <strong>Important Notice:</strong> By proceeding with a booking, you acknowledge that you have read, understood, and agree to these Terms & Conditions in their entirety.
             </Text>
           </Box>
         </VStack>
       </Container>
 
+      {/* CTA Section */}
+      <Box bg="#f7f4ed" py={12}>
+        <Container maxW="4xl" textAlign="center">
+          <Heading as="h3" fontSize="3xl" mb={4} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
+            Ready to Book Your Next Trip?
+          </Heading>
+          <Text fontSize="lg" color="#555555" mb={6} fontFamily="'Poppins', sans-serif">
+            Start planning your adventure with confidence.
+          </Text>
+          <HStack gap={4} justify="center" flexWrap="wrap">
+            <Button as="a" href="/" bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg">
+              <Icon as={Home} mr={2} />
+              Back to Home
+            </Button>
+            <Button as="a" href="https://wa.me/2348123456789" target="_blank" bg="#25D366" color="white" _hover={{ bg: "#1da851" }} size="lg">
+              <Icon as={MessageCircle} mr={2} />
+              Chat on WhatsApp
+            </Button>
+          </HStack>
+        </Container>
+      </Box>
+
       {/* Footer */}
-      <Box bg="gray.900" color="white" py={12}>
+      <Box bg="#2C2C2C" color="white" py={8}>
         <Container maxW="7xl">
-          <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8}>
-            <Box>
-              <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="blue.400" />
-                <Text fontSize="2xl" fontWeight="bold">Ontour Travels</Text>
-              </HStack>
-              <Text color="gray.400" fontSize="sm">
-                Your trusted travel partner.
-              </Text>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Quick Links</Heading>
-              <VStack align="start" gap={2}>
-                <Link href="/" color="gray.400" _hover={{ color: "white" }}>Home</Link>
-                <Link href="/book" color="gray.400" _hover={{ color: "white" }}>Book</Link>
-                <Link href="/tours" color="gray.400" _hover={{ color: "white" }}>Tours</Link>
-              </VStack>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Support</Heading>
-              <VStack align="start" gap={2}>
-                <Link href="/contact" color="gray.400" _hover={{ color: "white" }}>Contact</Link>
-                <Link href="/faq" color="gray.400" _hover={{ color: "white" }}>FAQ</Link>
-                <Link href="/privacy" color="gray.400" _hover={{ color: "white" }}>Privacy</Link>
-              </VStack>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Contact</Heading>
-              <Text color="gray.400" fontSize="sm">info@ontourtravels.com.ng</Text>
-            </Box>
-          </Grid>
-          <Box borderTop="1px" borderColor="gray.800" pt={8} mt={8} textAlign="center" color="gray.400">
-            <Text fontSize="sm">&copy; 2024 Ontour Travels. All rights reserved. Made with <Text as="span" color="red.500">💓</Text> by <Link href="https://github.com/peldevon" target="_blank" rel="noopener noreferrer" _hover={{ color: "blue.400" }}>Peldevon</Link></Text>
-          </Box>
+          <Flex justify="space-between" align="center" flexWrap="wrap" gap={4}>
+            <Text color="#E5E5E5" fontSize="sm" fontFamily="'Open Sans', sans-serif">
+              &copy; 2024 Ontour Travels. All rights reserved.
+            </Text>
+            <HStack gap={6}>
+              <Link href="/terms" color="#E5E5E5" _hover={{ color: "white" }} fontSize="sm">Terms & Conditions</Link>
+              <Link href="/privacy" color="#E5E5E5" _hover={{ color: "white" }} fontSize="sm">Privacy Policy</Link>
+              <Link href="/faq" color="#E5E5E5" _hover={{ color: "white" }} fontSize="sm">FAQ</Link>
+              <Link href="/contact" color="#E5E5E5" _hover={{ color: "white" }} fontSize="sm">Contact</Link>
+            </HStack>
+          </Flex>
         </Container>
       </Box>
     </Box>

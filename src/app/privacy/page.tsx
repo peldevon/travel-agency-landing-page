@@ -6,12 +6,18 @@ import {
   Heading,
   Text,
   VStack,
-  Grid,
   HStack,
-  Link,
   Icon,
+  Link,
+  Button,
+  IconButton,
+  Image,
+  Drawer,
+  Flex,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { Shield, MessageCircle, Menu, X, Home } from "lucide-react";
+import { useState } from "react";
 
 const MotionBox = motion.create(Box);
 
@@ -21,281 +27,313 @@ const fadeInUp = {
 };
 
 export default function PrivacyPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <Box minH="100vh" pt={20}>
+    <Box minH="100vh">
+      {/* Navigation Header */}
+      <Box position="sticky" top={0} zIndex={50} bg="white" boxShadow="sm">
+        <Container maxW="7xl" py={4}>
+          <Flex justify="space-between" align="center">
+            <HStack gap={2} as="a" href="/">
+              <Image 
+                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
+                alt="Ontour Travels Logo"
+                h="60px"
+                w="auto"
+                objectFit="contain"
+              />
+            </HStack>
+            <HStack gap={6} display={{ base: "none", md: "flex" }}>
+              <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }}>Home</Link>
+              <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }}>Flights & Hotels</Link>
+              <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }}>Shortlets</Link>
+              <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }}>Tours</Link>
+              <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
+              <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
+              <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
+                <Icon as={MessageCircle} mr={1} />
+                WhatsApp
+              </Button>
+            </HStack>
+            <IconButton 
+              display={{ base: "flex", md: "none" }} 
+              aria-label="Menu"
+              onClick={() => setMobileMenuOpen(true)}
+              variant="ghost"
+            >
+              <Menu />
+            </IconButton>
+          </Flex>
+        </Container>
+      </Box>
+
+      {/* Mobile Menu Drawer */}
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>Menu</Drawer.Title>
+              <Drawer.CloseTrigger asChild>
+                <IconButton variant="ghost" aria-label="Close">
+                  <X />
+                </IconButton>
+              </Drawer.CloseTrigger>
+            </Drawer.Header>
+            <Drawer.Body>
+              <VStack gap={4} align="stretch">
+                <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+                <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Flights & Hotels</Link>
+                <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Shortlets</Link>
+                <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Tours</Link>
+                <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>About</Link>
+                <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+                <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
+                  <Icon as={MessageCircle} mr={2} />
+                  WhatsApp
+                </Button>
+              </VStack>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Drawer.Root>
+
       {/* Hero Section */}
-      <Box bg="gray.900" color="white" py={16}>
+      <Box bg="#152852" color="white" py={16}>
         <Container maxW="5xl" textAlign="center">
           <MotionBox variants={fadeInUp} initial="hidden" animate="visible">
-            <Heading as="h1" fontSize={{ base: "4xl", md: "5xl" }} mb={4}>
+            <Icon as={Shield} boxSize={16} mx="auto" mb={4} color="#C9A449" />
+            <Heading as="h1" fontSize={{ base: "4xl", md: "5xl" }} mb={4} fontFamily="'Montserrat', sans-serif">
               Privacy Policy
             </Heading>
-            <Text fontSize="lg" color="gray.300">
-              Last updated: January 2024
+            <Text fontSize="lg" color="#FAFAFA" fontFamily="'Poppins', sans-serif">
+              Last updated: January 2025
             </Text>
           </MotionBox>
         </Container>
       </Box>
 
-      {/* Privacy Content */}
-      <Container maxW="5xl" py={16}>
+      {/* Content */}
+      <Container maxW="4xl" py={16}>
         <VStack gap={8} align="stretch">
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Text color="gray.700" fontSize="lg" mb={8}>
-              At Ontour Travels, we are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, store, and protect your data when you use our website and services.
-            </Text>
+            <Box bg="blue.50" p={6} borderRadius="lg" mb={8} borderLeft="4px solid" borderColor="blue.600">
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                At Ontour Travels, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your data when you use our services or visit our website.
+              </Text>
+            </Box>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
               1. Information We Collect
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>1.1 Personal Information:</strong> When you book our services, we collect personal information including: Full name (as on passport), Email address, Phone number (including WhatsApp), Date of birth, Passport number and expiry date (for international bookings), Nationality, Payment information (processed securely by Paystack/Flutterwave), and Emergency contact details (for tours).
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>1.1 Personal Information:</strong> When you book a service, we collect: Full name, Email address, Phone number, Date of birth, Passport details (for international travel), Payment information (processed securely through Paystack/Flutterwave).
               </Text>
-              <Text color="gray.700">
-                <strong>1.2 Booking Information:</strong> We collect details about your bookings including travel dates, destinations, flight preferences, accommodation choices, special requests (meal preferences, accessibility needs, etc.), and Payment history.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>1.2 Automatically Collected Data:</strong> IP address, Browser type and version, Device information, Pages visited and time spent, Cookies and similar tracking technologies.
               </Text>
-              <Text color="gray.700">
-                <strong>1.3 Automatically Collected Information:</strong> When you visit our website, we automatically collect: IP address, Browser type and version, Device information, Pages visited and time spent, Referring website, and Cookies and similar tracking technologies.
-              </Text>
-              <Text color="gray.700">
-                <strong>1.4 Communication Records:</strong> We keep records of communications with you via email, WhatsApp, phone, or our contact forms for customer service and quality assurance purposes.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>1.3 Communication Data:</strong> Messages sent via our contact forms, WhatsApp conversations, Email correspondence.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
               2. How We Use Your Information
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>2.1 Service Provision:</strong> We use your information to: Process and confirm your bookings, Issue tickets and vouchers, Coordinate with airlines, hotels, and tour operators, Provide customer support, Send booking confirmations and travel documents, and Manage changes, cancellations, and refunds.
-              </Text>
-              <Text color="gray.700">
-                <strong>2.2 Payment Processing:</strong> Payment information is processed securely by our payment partners (Paystack/Flutterwave). We do not store complete credit card details on our servers.
-              </Text>
-              <Text color="gray.700">
-                <strong>2.3 Communication:</strong> We use your contact information to: Send booking confirmations and updates, Provide travel reminders and check-in notifications, Respond to inquiries and support requests, Share important travel advisories, and Send promotional offers and newsletters (you can opt out anytime).
-              </Text>
-              <Text color="gray.700">
-                <strong>2.4 Legal Compliance:</strong> We may use your information to comply with legal obligations, enforce our Terms & Conditions, prevent fraud and abuse, and respond to legal requests from authorities.
-              </Text>
-              <Text color="gray.700">
-                <strong>2.5 Service Improvement:</strong> We analyze anonymized data to improve our website, optimize user experience, understand customer preferences, and develop new services.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                We use your information to: Process bookings and payments, Send booking confirmations and travel documents, Provide customer support, Send service updates and important notifications, Improve our website and services, Comply with legal obligations, Prevent fraud and ensure security, Send promotional offers (with your consent).
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
               3. Information Sharing & Disclosure
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>3.1 Service Partners:</strong> We share necessary information with: Airlines (for ticket issuance and passenger manifests), Hotels and accommodation providers, Tour operators and local guides, Ground transportation services, Travel insurance providers, and Visa processing agencies.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.1 Service Providers:</strong> We share information with airlines, hotels, tour operators, and other service providers necessary to fulfill your bookings. These parties have their own privacy policies.
               </Text>
-              <Text color="gray.700">
-                <strong>3.2 Payment Processors:</strong> Payment information is shared with Paystack and Flutterwave to process transactions securely. These partners are PCI-DSS compliant and protect your financial data.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.2 Payment Processors:</strong> Payment data is processed by Paystack and Flutterwave. We never store your full credit card details on our servers.
               </Text>
-              <Text color="gray.700">
-                <strong>3.3 Technology Providers:</strong> We use third-party services for: Website hosting and maintenance, Email communications, WhatsApp Business API, Analytics (Google Analytics), and Booking systems (Amadeus API).
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.3 Legal Compliance:</strong> We may disclose your information if required by law, court order, or government request, or to protect our rights and safety.
               </Text>
-              <Text color="gray.700">
-                <strong>3.4 Legal Requirements:</strong> We may disclose information when required by law, to comply with legal processes, to protect our rights and property, to prevent fraud or security threats, and in connection with business transfers or acquisitions.
-              </Text>
-              <Text color="gray.700">
-                <strong>3.5 No Selling of Data:</strong> We do not sell, rent, or trade your personal information to third parties for marketing purposes.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                <strong>3.4 We DO NOT:</strong> Sell your personal information to third parties, Share your data with advertisers, Use your information for purposes unrelated to travel services without consent.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
               4. Data Security
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>4.1 Security Measures:</strong> We implement industry-standard security measures to protect your information including: SSL/TLS encryption for data transmission, Secure servers with firewalls and intrusion detection, Regular security audits and updates, Access controls limiting employee access to sensitive data, and Secure backup systems.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                We implement industry-standard security measures to protect your data: SSL encryption for all transactions, Secure payment gateways (Paystack/Flutterwave), Regular security audits, Access controls limiting who can view your information, Encrypted data storage.
               </Text>
-              <Text color="gray.700">
-                <strong>4.2 Payment Security:</strong> All payment transactions are processed through PCI-DSS compliant payment gateways. We do not store complete credit card information on our systems.
-              </Text>
-              <Text color="gray.700">
-                <strong>4.3 Limitations:</strong> While we take reasonable precautions, no internet transmission or electronic storage is 100% secure. We cannot guarantee absolute security but will notify you promptly of any data breaches as required by law.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                However, no method of transmission over the internet is 100% secure. While we strive to protect your data, we cannot guarantee absolute security.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              5. Data Retention
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              5. Cookies & Tracking Technologies
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>5.1 Retention Period:</strong> We retain your personal information for as long as necessary to: Fulfill the purposes described in this policy, Maintain records for tax and accounting purposes (typically 7 years), Comply with legal obligations, and Resolve disputes and enforce agreements.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                We use cookies to: Remember your preferences, Analyze website traffic, Improve user experience, Enable certain website features.
               </Text>
-              <Text color="gray.700">
-                <strong>5.2 Deletion Requests:</strong> You can request deletion of your personal data at any time (subject to legal and contractual obligations). Contact us via email or WhatsApp to request deletion.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                You can disable cookies through your browser settings, but this may affect website functionality.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              6. Your Rights & Choices
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              6. Your Rights
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>6.1 Access & Correction:</strong> You have the right to: Access your personal information, Request corrections to inaccurate data, Update your contact preferences, and Request a copy of your data in a portable format.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                You have the right to: Access your personal data, Request corrections to inaccurate information, Request deletion of your data (subject to legal retention requirements), Opt out of marketing communications, Withdraw consent for data processing, Lodge a complaint with relevant data protection authorities.
               </Text>
-              <Text color="gray.700">
-                <strong>6.2 Marketing Communications:</strong> You can opt out of promotional emails and messages at any time by: Clicking "unsubscribe" in our emails, Replying "STOP" to SMS messages, Contacting us directly via WhatsApp or email. Note: You will still receive transactional communications related to your bookings.
-              </Text>
-              <Text color="gray.700">
-                <strong>6.3 Cookies:</strong> You can control cookies through your browser settings. Disabling cookies may affect website functionality.
-              </Text>
-              <Text color="gray.700">
-                <strong>6.4 Data Deletion:</strong> You can request deletion of your account and personal data. We will comply within 30 days, except where retention is required by law.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                To exercise these rights, contact us at info@ontourtravels.com.ng or +234 812 345 6789.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              7. Cookies & Tracking Technologies
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              7. Data Retention
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>7.1 Types of Cookies:</strong> We use: Essential cookies (required for website functionality), Analytics cookies (to understand user behavior via Google Analytics), Functional cookies (to remember your preferences), and Marketing cookies (to show relevant ads).
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                We retain your personal information for as long as necessary to: Fulfill the purposes outlined in this policy, Comply with legal obligations (e.g., tax records, transaction history), Resolve disputes and enforce our agreements.
               </Text>
-              <Text color="gray.700">
-                <strong>7.2 Third-Party Cookies:</strong> Some cookies are placed by third-party services we use (Google Analytics, payment processors, etc.). These are governed by the respective third parties' privacy policies.
-              </Text>
-              <Text color="gray.700">
-                <strong>7.3 Cookie Management:</strong> You can control cookies through your browser settings. Most browsers allow you to refuse cookies or alert you when cookies are being sent.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                Booking records are typically retained for 7 years for legal and accounting purposes.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              8. Children's Privacy
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              8. Third-Party Links
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>8.1 Age Restriction:</strong> Our services are not intended for children under 18. We do not knowingly collect personal information from minors without parental consent.
-              </Text>
-              <Text color="gray.700">
-                <strong>8.2 Parental Consent:</strong> If booking travel for minors, you must be their parent or legal guardian and provide consent on their behalf.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                Our website may contain links to third-party websites (airlines, hotels, payment processors). We are not responsible for their privacy practices. Review their privacy policies before providing any information.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              9. International Data Transfers
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              9. Children's Privacy
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>9.1 Cross-Border Transfers:</strong> Your information may be transferred to and processed in countries outside Nigeria (e.g., when booking international flights or hotels). We ensure appropriate safeguards are in place.
-              </Text>
-              <Text color="gray.700">
-                <strong>9.2 Data Protection Standards:</strong> When transferring data internationally, we ensure recipients maintain adequate data protection standards through contractual obligations or adherence to recognized frameworks.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                Our services are not directed at individuals under 18. We do not knowingly collect personal information from minors. If you believe we have inadvertently collected data from a child, contact us immediately.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              10. Changes to This Policy
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
+              10. Changes to This Privacy Policy
             </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>10.1 Updates:</strong> We may update this Privacy Policy periodically to reflect changes in our practices, legal requirements, or services. The "Last Updated" date at the top will be revised accordingly.
-              </Text>
-              <Text color="gray.700">
-                <strong>10.2 Notification:</strong> Material changes will be communicated via email or prominent notice on our website. Continued use of our services after changes indicates acceptance of the updated policy.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last Updated" date. Continued use of our services after changes indicates acceptance of the updated policy.
               </Text>
             </VStack>
           </MotionBox>
 
           <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
+            <Heading as="h2" fontSize="2xl" mb={4} color="#152852" fontFamily="'Montserrat', sans-serif">
               11. Contact Us
             </Heading>
-            <Text color="gray.700" mb={3}>
-              If you have questions about this Privacy Policy or how we handle your data, please contact us:
-            </Text>
-            <VStack gap={2} align="stretch" color="gray.700">
-              <Text><strong>Email:</strong> privacy@ontourtravels.com.ng or info@ontourtravels.com.ng</Text>
-              <Text><strong>Phone:</strong> +234 812 345 6789</Text>
-              <Text><strong>WhatsApp:</strong> +234 812 345 6789</Text>
-              <Text><strong>Address:</strong> Lagos, Nigeria</Text>
-            </VStack>
-          </MotionBox>
-
-          <MotionBox variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
-              12. Regulatory Compliance
-            </Heading>
             <VStack gap={3} align="stretch">
-              <Text color="gray.700">
-                <strong>12.1 Nigerian Law:</strong> This Privacy Policy complies with the Nigeria Data Protection Regulation (NDPR) 2019 and other applicable Nigerian privacy laws.
+              <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+                For questions about this Privacy Policy or to exercise your data rights, contact us:
               </Text>
-              <Text color="gray.700">
-                <strong>12.2 Data Protection Authority:</strong> If you believe your data rights have been violated, you may file a complaint with the National Information Technology Development Agency (NITDA) or contact us to resolve the issue.
-              </Text>
+              <VStack align="start" gap={2} pl={4}>
+                <Text color="gray.700" fontFamily="'Open Sans', sans-serif">
+                  <strong>Email:</strong> info@ontourtravels.com.ng
+                </Text>
+                <Text color="gray.700" fontFamily="'Open Sans', sans-serif">
+                  <strong>Phone:</strong> +234 812 345 6789
+                </Text>
+                <Text color="gray.700" fontFamily="'Open Sans', sans-serif">
+                  <strong>WhatsApp:</strong> +234 812 345 6789
+                </Text>
+                <Text color="gray.700" fontFamily="'Open Sans', sans-serif">
+                  <strong>Office:</strong> Lagos, Nigeria
+                </Text>
+              </VStack>
             </VStack>
           </MotionBox>
 
-          <Box borderTop="1px solid" borderColor="gray.200" pt={8}>
-            <Text fontSize="sm" color="gray.600" textAlign="center">
-              By using Ontour Travels services, you acknowledge that you have read and understood this Privacy Policy.
+          <Box bg="green.50" p={6} borderRadius="lg" borderLeft="4px solid" borderColor="green.500">
+            <Text color="gray.700" fontWeight="medium" mb={2} fontFamily="'Open Sans', sans-serif">
+              Your privacy matters to us.
+            </Text>
+            <Text color="gray.700" lineHeight="tall" fontFamily="'Open Sans', sans-serif">
+              We're committed to transparency and protecting your personal information. If you have concerns or questions about how we handle your data, please don't hesitate to reach out.
             </Text>
           </Box>
         </VStack>
       </Container>
 
+      {/* CTA Section */}
+      <Box bg="#f7f4ed" py={12}>
+        <Container maxW="4xl" textAlign="center">
+          <Heading as="h3" fontSize="3xl" mb={4} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
+            Ready to Book Your Next Trip?
+          </Heading>
+          <Text fontSize="lg" color="#555555" mb={6} fontFamily="'Poppins', sans-serif">
+            Your data is safe with us. Start planning with confidence.
+          </Text>
+          <HStack gap={4} justify="center" flexWrap="wrap">
+            <Button as="a" href="/" bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg">
+              <Icon as={Home} mr={2} />
+              Back to Home
+            </Button>
+            <Button as="a" href="https://wa.me/2348123456789" target="_blank" bg="#25D366" color="white" _hover={{ bg: "#1da851" }} size="lg">
+              <Icon as={MessageCircle} mr={2} />
+              Chat on WhatsApp
+            </Button>
+          </HStack>
+        </Container>
+      </Box>
+
       {/* Footer */}
-      <Box bg="gray.900" color="white" py={12}>
+      <Box bg="#2C2C2C" color="white" py={8}>
         <Container maxW="7xl">
-          <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8}>
-            <Box>
-              <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="blue.400" />
-                <Text fontSize="2xl" fontWeight="bold">Ontour Travels</Text>
-              </HStack>
-              <Text color="gray.400" fontSize="sm">
-                Your trusted travel partner.
-              </Text>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Quick Links</Heading>
-              <VStack align="start" gap={2}>
-                <Link href="/" color="gray.400" _hover={{ color: "white" }}>Home</Link>
-                <Link href="/book" color="gray.400" _hover={{ color: "white" }}>Book</Link>
-                <Link href="/tours" color="gray.400" _hover={{ color: "white" }}>Tours</Link>
-              </VStack>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Support</Heading>
-              <VStack align="start" gap={2}>
-                <Link href="/contact" color="gray.400" _hover={{ color: "white" }}>Contact</Link>
-                <Link href="/faq" color="gray.400" _hover={{ color: "white" }}>FAQ</Link>
-                <Link href="/terms" color="gray.400" _hover={{ color: "white" }}>Terms</Link>
-              </VStack>
-            </Box>
-            <Box>
-              <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Contact</Heading>
-              <Text color="gray.400" fontSize="sm">info@ontourtravels.com.ng</Text>
-            </Box>
-          </Grid>
-          <Box borderTop="1px" borderColor="gray.800" pt={8} mt={8} textAlign="center" color="gray.400">
-            <Text fontSize="sm">&copy; 2024 Ontour Travels. All rights reserved. Made with <Text as="span" color="red.500">💓</Text> by <Link href="https://github.com/peldevon" target="_blank" rel="noopener noreferrer" _hover={{ color: "blue.400" }}>Peldevon</Link></Text>
-          </Box>
+          <Flex justify="space-between" align="center" flexWrap="wrap" gap={4}>
+            <Text color="#E5E5E5" fontSize="sm" fontFamily="'Open Sans', sans-serif">
+              &copy; 2024 Ontour Travels. All rights reserved.
+            </Text>
+            <HStack gap={6}>
+              <Link href="/terms" color="#E5E5E5" _hover={{ color: "white" }} fontSize="sm">Terms & Conditions</Link>
+              <Link href="/privacy" color="#E5E5E5" _hover={{ color: "white" }} fontSize="sm">Privacy Policy</Link>
+              <Link href="/faq" color="#E5E5E5" _hover={{ color: "white" }} fontSize="sm">FAQ</Link>
+              <Link href="/contact" color="#E5E5E5" _hover={{ color: "white" }} fontSize="sm">Contact</Link>
+            </HStack>
+          </Flex>
         </Container>
       </Box>
     </Box>
