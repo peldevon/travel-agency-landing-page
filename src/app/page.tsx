@@ -19,7 +19,6 @@ import {
   Drawer,
 } from "@chakra-ui/react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { Avatar } from "@/components/ui/avatar";
 import { 
@@ -49,7 +48,7 @@ import {
   ChevronRight,
   X,
 } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
