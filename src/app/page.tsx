@@ -165,38 +165,35 @@ export default function Home() {
   const tours = [
     {
       image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80",
-      title: "Weekend in Dubai",
+      title: "Dubai",
+      location: "Dubai, UAE",
       duration: "4D/3N",
-      priceFrom: "₦850,000",
+      priceFrom: "299",
       tag: "International"
     },
     {
       image: "https://images.unsplash.com/photo-1565552645632-d725f8bfc19d?w=600&q=80",
-      title: "Zanzibar Escape",
+      title: "Zanzibar",
+      location: "Zanzibar, Tanzania",
       duration: "5D/4N",
-      priceFrom: "₦650,000",
+      priceFrom: "239",
       tag: "Regional"
     },
     {
       image: "https://images.unsplash.com/photo-1609137144813-7d9921338f24?w=600&q=80",
-      title: "Obudu Cattle Ranch",
+      title: "Obudu",
+      location: "Cross River, Nigeria",
       duration: "3D/2N",
-      priceFrom: "₦180,000",
+      priceFrom: "319",
       tag: "Local"
     },
     {
       image: "https://images.unsplash.com/photo-1524850011238-e3d235c7d4c9?w=600&q=80",
-      title: "Maldives Paradise",
+      title: "Maldives",
+      location: "Maldives",
       duration: "7D/6N",
-      priceFrom: "₦1,200,000",
+      priceFrom: "479",
       tag: "International"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=80",
-      title: "Cape Town Adventure",
-      duration: "6D/5N",
-      priceFrom: "₦750,000",
-      tag: "Regional"
     }
   ];
 
@@ -216,13 +213,13 @@ export default function Home() {
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Container maxW="7xl" py={4}>
+        <Container maxW="7xl" py={3}>
           <Flex justify="space-between" align="center">
             <HStack gap={2}>
               <Image 
                 src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
                 alt="Ontour Travels Logo"
-                h="60px"
+                h="50px"
                 w="auto"
                 objectFit="contain"
               />
@@ -243,7 +240,7 @@ export default function Home() {
               <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontFamily="'Poppins', sans-serif">
                 Contact
               </Link>
-              <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} as="a" href="https://wa.me/2348123456789" target="_blank">
+              <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
                 <Icon as={MessageCircle} mr={2} />
                 WhatsApp
               </Button>
@@ -263,7 +260,7 @@ export default function Home() {
         alignItems="center"
         justifyContent="center"
         color="white"
-        pt={16}
+        pt={{ base: "80px", md: "100px" }}
         style={{ opacity: heroOpacity, scale: heroScale }}
       >
         <Box
@@ -285,7 +282,14 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Heading as="h1" fontSize={{ base: "4xl", md: "6xl" }} fontWeight="bold" mb={4} fontFamily="'Montserrat', sans-serif">
+            <Heading 
+              as="h1" 
+              fontSize={{ base: "4xl", md: "6xl" }} 
+              fontWeight="bold" 
+              mb={6}
+              lineHeight={{ base: "1.2", md: "1.3" }}
+              fontFamily="'Montserrat', sans-serif"
+            >
               Book Flights, Hotels & Shortlet Stays — Fast
             </Heading>
             <Text fontSize={{ base: "lg", md: "xl" }} color="#FAFAFA" mb={2} fontFamily="'Poppins', sans-serif">
@@ -500,21 +504,25 @@ export default function Home() {
       {/* Featured Tours - CAROUSEL */}
       <AnimatedSection bg="white">
         <Container maxW="7xl" py={20}>
-          <MotionBox
-            textAlign="center"
-            mb={12}
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <Heading as="h2" fontSize="4xl" fontWeight="bold" mb={4} color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
-              Curated Tours & Experiences
-            </Heading>
-            <Text fontSize="xl" color="#555555" fontFamily="'Poppins', sans-serif">
-              Handpicked trips with transparent pricing.
-            </Text>
-          </MotionBox>
+          {/* Section Header with "Destinations" label on left */}
+          <Flex justify="space-between" align="flex-start" mb={8}>
+            <Box>
+              <Text 
+                fontSize="sm" 
+                fontWeight="bold" 
+                color="#C9A449" 
+                textTransform="uppercase" 
+                letterSpacing="wider"
+                mb={3}
+                fontFamily="'Poppins', sans-serif"
+              >
+                Destinations
+              </Text>
+              <Heading as="h2" fontSize="3xl" fontWeight="bold" color="#2C2C2C" fontFamily="'Montserrat', sans-serif">
+                Curated Tours & Experiences
+              </Heading>
+            </Box>
+          </Flex>
 
           {/* Carousel Container */}
           <Box position="relative" mb={10}>
@@ -526,15 +534,18 @@ export default function Home() {
                     flex="0 0 100%"
                     minW={0}
                     css={{
-                      '@media (min-width: 768px)': {
+                      '@media (min-width: 640px)': {
                         flex: '0 0 50%'
                       },
-                      '@media (min-width: 1024px)': {
+                      '@media (min-width: 768px)': {
                         flex: '0 0 33.333%'
+                      },
+                      '@media (min-width: 1024px)': {
+                        flex: '0 0 25%'
                       }
                     }}
                   >
-                    <TourCard {...tour} />
+                    <TourDestinationCard {...tour} />
                   </Box>
                 ))}
               </Flex>
@@ -898,6 +909,65 @@ function TourCard({ image, title, duration, priceFrom, tag }: any) {
         <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} w="full" as="a" href="/tours">
           View Tour
         </Button>
+      </Card.Body>
+    </MotionCard>
+  );
+}
+
+function TourDestinationCard({ image, title, location, priceFrom, tag }: any) {
+  return (
+    <MotionCard
+      overflow="hidden"
+      cursor="pointer"
+      variants={fadeInUp}
+      whileHover={{ y: -10, boxShadow: "xl" }}
+      transition={{ duration: 0.3 }}
+      bg="white"
+      borderRadius="lg"
+    >
+      <Box position="relative" h="48" overflow="hidden">
+        <Image 
+          src={image}
+          alt={title}
+          w="full"
+          h="full"
+          objectFit="cover"
+        />
+        {/* Price badge - positioned like reference image */}
+        <Box 
+          position="absolute" 
+          bottom={3} 
+          left={3}
+          bg="white" 
+          px={3} 
+          py={2} 
+          borderRadius="md"
+          boxShadow="md"
+        >
+          <Text fontSize="xs" color="#555555" fontFamily="'Open Sans', sans-serif" lineHeight="1">
+            From
+          </Text>
+          <Text fontSize="2xl" fontWeight="bold" color="#C9A449" fontFamily="'Montserrat', sans-serif" lineHeight="1.2">
+            {priceFrom}<Text as="span" fontSize="lg">$</Text>
+          </Text>
+        </Box>
+      </Box>
+      <Card.Body p={4}>
+        <Heading 
+          as="h3" 
+          fontSize="lg" 
+          fontWeight="bold" 
+          mb={1} 
+          color="#2C2C2C" 
+          fontFamily="'Montserrat', sans-serif"
+          noOfLines={1}
+        >
+          {title}
+        </Heading>
+        <HStack gap={1} color="#555555" fontSize="sm">
+          <Icon as={MapPin} boxSize={4} />
+          <Text fontFamily="'Open Sans', sans-serif" noOfLines={1}>{location}</Text>
+        </HStack>
       </Card.Body>
     </MotionCard>
   );
