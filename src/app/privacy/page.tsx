@@ -7,7 +7,6 @@ import {
   Text,
   VStack,
   HStack,
-  Icon,
   Link,
   Button,
   IconButton,
@@ -52,7 +51,7 @@ export default function PrivacyPage() {
               <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
               <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
               <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
-                <Icon as={MessageCircle} mr={1} />
+                <MessageCircle size={16} style={{ marginRight: '4px' }} />
                 WhatsApp
               </Button>
             </HStack>
@@ -69,7 +68,7 @@ export default function PrivacyPage() {
       </Box>
 
       {/* Mobile Menu Drawer */}
-      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(details) => setMobileMenuOpen(details.open)} placement="end">
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content>
@@ -90,7 +89,7 @@ export default function PrivacyPage() {
                 <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>About</Link>
                 <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
                 <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
-                  <Icon as={MessageCircle} mr={2} />
+                  <MessageCircle size={20} style={{ marginRight: '8px' }} />
                   WhatsApp
                 </Button>
               </VStack>
@@ -103,7 +102,7 @@ export default function PrivacyPage() {
       <Box bg="#152852" color="white" py={16}>
         <Container maxW="5xl" textAlign="center">
           <MotionBox variants={fadeInUp} initial="hidden" animate="visible">
-            <Icon as={Shield} boxSize={16} mx="auto" mb={4} color="#C9A449" />
+            <Shield size={64} color="#C9A449" style={{ margin: '0 auto 16px' }} />
             <Heading as="h1" fontSize={{ base: "4xl", md: "5xl" }} mb={4} fontFamily="'Montserrat', sans-serif">
               Privacy Policy
             </Heading>
@@ -309,11 +308,11 @@ export default function PrivacyPage() {
           </Text>
           <HStack gap={4} justify="center" flexWrap="wrap">
             <Button as="a" href="/" bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg">
-              <Icon as={Home} mr={2} />
+              <Home size={20} style={{ marginRight: '8px' }} />
               Back to Home
             </Button>
             <Button as="a" href="https://wa.me/2348123456789" target="_blank" bg="#25D366" color="white" _hover={{ bg: "#1da851" }} size="lg">
-              <Icon as={MessageCircle} mr={2} />
+              <MessageCircle size={20} style={{ marginRight: '8px' }} />
               Chat on WhatsApp
             </Button>
           </HStack>

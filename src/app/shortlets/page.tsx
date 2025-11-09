@@ -12,7 +12,6 @@ import {
   Grid,
   HStack,
   VStack,
-  Icon,
   Link,
   Input,
   IconButton,
@@ -39,6 +38,7 @@ import {
   ChevronRight,
   Menu,
   X,
+  Hotel,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -136,7 +136,7 @@ export default function ShortletsPage() {
               <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
               <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
               <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
-                <Icon as={MessageCircle} mr={1} />
+                <MessageCircle size={16} style={{ marginRight: '4px' }} />
                 WhatsApp
               </Button>
             </HStack>
@@ -153,7 +153,7 @@ export default function ShortletsPage() {
       </Box>
 
       {/* Mobile Menu Drawer */}
-      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(details) => setMobileMenuOpen(details.open)} placement="end">
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content>
@@ -183,7 +183,7 @@ export default function ShortletsPage() {
                   Contact
                 </Link>
                 <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
-                  <Icon as={MessageCircle} mr={2} />
+                  <MessageCircle size={20} style={{ marginRight: '8px' }} />
                   WhatsApp
                 </Button>
               </VStack>
@@ -232,7 +232,7 @@ export default function ShortletsPage() {
               <Input placeholder="Guests" size="lg" bg="gray.50" color="#2C2C2C" />
             </Grid>
             <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" w="full" mt={4}>
-              <Icon as={Search} mr={2} />
+              <Search size={20} style={{ marginRight: '8px' }} />
               Search Shortlets
             </Button>
           </MotionBox>
@@ -288,7 +288,7 @@ export default function ShortletsPage() {
               viewport={{ once: true }}
             >
               <Heading as="h3" fontSize="lg" mb={4}>
-                <Icon as={Filter} display="inline" mr={2} />
+                <Filter size={20} style={{ display: 'inline', marginRight: '8px' }} />
                 Filters
               </Heading>
 
@@ -340,7 +340,7 @@ export default function ShortletsPage() {
                 {shortlets.length} properties available
               </Text>
               <Button size="sm" variant="outline" display={{ base: "flex", lg: "none" }}>
-                <Icon as={Filter} mr={2} />
+                <Filter size={16} style={{ marginRight: '8px' }} />
                 Filters
               </Button>
             </Flex>
@@ -396,7 +396,7 @@ export default function ShortletsPage() {
               _hover={{ bg: "#1da851" }}
               size="lg"
             >
-              <Icon as={MessageCircle} mr={2} />
+              <MessageCircle size={20} style={{ marginRight: '8px' }} />
               Chat on WhatsApp
             </Button>
           </MotionBox>
@@ -456,7 +456,7 @@ export default function ShortletsPage() {
   );
 }
 
-function TrustCard({ icon, title, description }: any) {
+function TrustCard({ icon: IconComponent, title, description }: any) {
   return (
     <MotionBox
       variants={fadeInUp}
@@ -474,7 +474,7 @@ function TrustCard({ icon, title, description }: any) {
           alignItems="center"
           justifyContent="center"
         >
-          <Icon as={icon} boxSize={8} color="#152852" />
+          <IconComponent size={32} color="#152852" />
         </Box>
         <Heading as="h3" fontSize="lg" fontWeight="bold">
           {title}
@@ -599,7 +599,7 @@ function PropertyCard({ property, router }: { property: Shortlet; router: any })
           boxShadow="md"
         >
           <HStack gap={1}>
-            <Icon as={Star} boxSize={4} fill="#C9A449" color="#C9A449" />
+            <Star size={16} fill="#C9A449" color="#C9A449" />
             <Text fontWeight="bold" fontSize="sm">{property.rating}</Text>
             <Text fontSize="xs" color="gray.600">({property.reviews_count})</Text>
           </HStack>
@@ -607,7 +607,7 @@ function PropertyCard({ property, router }: { property: Shortlet; router: any })
       </Box>
       <Card.Body p={5}>
         <HStack gap={2} mb={2}>
-          <Icon as={MapPin} boxSize={4} color="#152852" />
+          <MapPin size={16} color="#152852" />
           <Text fontSize="sm" color="gray.600">{property.location}</Text>
         </HStack>
         <Heading as="h3" fontSize="lg" fontWeight="bold" mb={3} color="#2C2C2C">
@@ -646,7 +646,7 @@ function PropertyCard({ property, router }: { property: Shortlet; router: any })
             variant="outline"
             colorPalette="green"
           >
-            <Icon as={MessageCircle} />
+            <MessageCircle size={20} />
           </Button>
         </Flex>
       </Card.Body>
