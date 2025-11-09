@@ -16,6 +16,10 @@ import {
   Card,
   Image,
   Link,
+  Input,
+  Textarea,
+  IconButton,
+  Drawer,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import {
@@ -33,8 +37,11 @@ import {
   Shield,
   Star,
   Info,
+  Menu,
+  X,
 } from "lucide-react";
-import { Accordion } from "@/components/ui/accordion";
+import { Field } from "@/components/ui/field";
+import { toaster } from "@/components/ui/toaster";
 
 const MotionBox = motion.create(Box);
 const MotionCard = motion.create(Card.Root);
@@ -80,6 +87,18 @@ export default function TourDetailPage() {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(0);
   const [showEnquiryForm, setShowEnquiryForm] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    dates: "",
+    adults: "",
+    children: "",
+    budget: "",
+    message: ""
+  });
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchTour = async () => {
@@ -99,6 +118,53 @@ export default function TourDetailPage() {
 
     fetchTour();
   }, [params.slug]);
+
+  const handleEnquirySubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          serviceType: `Tour Enquiry: ${tour?.title}`,
+        }),
+      });
+
+      if (response.ok) {
+        toaster.create({
+          title: "Enquiry Sent!",
+          description: "We'll get back to you within 24 hours. Check WhatsApp for faster response!",
+          type: "success",
+          duration: 5000,
+        });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          dates: "",
+          adults: "",
+          children: "",
+          budget: "",
+          message: ""
+        });
+        setShowEnquiryForm(false);
+      } else {
+        throw new Error("Failed to send enquiry");
+      }
+    } catch (error) {
+      toaster.create({
+        title: "Error",
+        description: "Failed to send enquiry. Please try WhatsApp instead.",
+        type: "error",
+        duration: 5000,
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -132,7 +198,92 @@ export default function TourDetailPage() {
   const whatsappLink = `https://wa.me/2348123456789?text=${encodeURIComponent(tour.whatsapp_prefill)}`;
 
   return (
-    <Box minH="100vh" pt={20}>
+    <Box minH="100vh">
+      {/* Navigation Header */}
+      <Box
+        position="sticky"
+        top={0}
+        zIndex={50}
+        bg="white"
+        boxShadow="sm"
+      >
+        <Container maxW="7xl" py={4}>
+          <Flex justify="space-between" align="center">
+            <HStack gap={2} as="a" href="/">
+              <Image 
+                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
+                alt="Ontour Travels Logo"
+                h="60px"
+                w="auto"
+                objectFit="contain"
+              />
+            </HStack>
+            <HStack gap={6} display={{ base: "none", md: "flex" }}>
+              <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }}>Home</Link>
+              <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }}>Flights & Hotels</Link>
+              <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }}>Shortlets</Link>
+              <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
+              <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
+              <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
+                <Icon as={MessageCircle} mr={1} />
+                WhatsApp
+              </Button>
+            </HStack>
+            <IconButton 
+              display={{ base: "flex", md: "none" }} 
+              aria-label="Menu"
+              onClick={() => setMobileMenuOpen(true)}
+              variant="ghost"
+            >
+              <Menu />
+            </IconButton>
+          </Flex>
+        </Container>
+      </Box>
+
+      {/* Mobile Menu Drawer */}
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>Menu</Drawer.Title>
+              <Drawer.CloseTrigger asChild>
+                <IconButton variant="ghost" aria-label="Close">
+                  <X />
+                </IconButton>
+              </Drawer.CloseTrigger>
+            </Drawer.Header>
+            <Drawer.Body>
+              <VStack gap={4} align="stretch">
+                <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Home
+                </Link>
+                <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Flights & Hotels
+                </Link>
+                <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Shortlets
+                </Link>
+                <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Tours
+                </Link>
+                <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  About
+                </Link>
+                <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Contact
+                </Link>
+                <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
+                  <Icon as={MessageCircle} mr={2} />
+                  WhatsApp
+                </Button>
+              </VStack>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Drawer.Root>
+
       {/* Back Button */}
       <Container maxW="7xl" py={4}>
         <Button
@@ -362,6 +513,122 @@ export default function TourDetailPage() {
                 </Card.Body>
               </Card.Root>
             </MotionBox>
+
+            {/* Enquiry Form Section */}
+            {showEnquiryForm && (
+              <MotionBox 
+                variants={fadeInUp} 
+                initial="hidden" 
+                animate="visible"
+                mt={8}
+                p={6}
+                bg="blue.50"
+                borderRadius="lg"
+              >
+                <Heading as="h3" fontSize="2xl" mb={6} color="gray.900">
+                  <Icon as={MessageCircle} color="blue.600" mr={2} />
+                  Request a Quote
+                </Heading>
+                <form onSubmit={handleEnquirySubmit}>
+                  <VStack gap={4} align="stretch">
+                    <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+                      <Field label="Full Name" required>
+                        <Input
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="John Doe"
+                          required
+                        />
+                      </Field>
+                      <Field label="Email" required>
+                        <Input
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="john@example.com"
+                          required
+                        />
+                      </Field>
+                    </Grid>
+
+                    <Field label="WhatsApp Phone Number" required>
+                      <Input
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+234 812 345 6789"
+                        required
+                      />
+                    </Field>
+
+                    <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+                      <Field label="Preferred Travel Dates">
+                        <Input
+                          value={formData.dates}
+                          onChange={(e) => setFormData({ ...formData, dates: e.target.value })}
+                          placeholder="e.g., Dec 2025"
+                        />
+                      </Field>
+                      <Field label="Budget Range">
+                        <Input
+                          value={formData.budget}
+                          onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
+                          placeholder="e.g., ₦500k - ₦1M"
+                        />
+                      </Field>
+                    </Grid>
+
+                    <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={4}>
+                      <Field label="Number of Adults">
+                        <Input
+                          type="number"
+                          min="1"
+                          value={formData.adults}
+                          onChange={(e) => setFormData({ ...formData, adults: e.target.value })}
+                          placeholder="2"
+                        />
+                      </Field>
+                      <Field label="Number of Children">
+                        <Input
+                          type="number"
+                          min="0"
+                          value={formData.children}
+                          onChange={(e) => setFormData({ ...formData, children: e.target.value })}
+                          placeholder="0"
+                        />
+                      </Field>
+                    </Grid>
+
+                    <Field label="Additional Information">
+                      <Textarea
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Any special requests or questions?"
+                        rows={4}
+                      />
+                    </Field>
+
+                    <HStack gap={3}>
+                      <Button
+                        type="submit"
+                        colorPalette="blue"
+                        loading={submitting}
+                        flex={1}
+                      >
+                        Send Enquiry
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setShowEnquiryForm(false)}
+                      >
+                        Cancel
+                      </Button>
+                    </HStack>
+                  </VStack>
+                </form>
+              </MotionBox>
+            )}
           </Box>
 
           {/* Sidebar */}
