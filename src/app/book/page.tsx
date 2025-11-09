@@ -12,7 +12,6 @@ import {
   Grid,
   HStack,
   VStack,
-  Icon,
   Link,
   Input,
   Tabs,
@@ -77,7 +76,7 @@ export default function BookPage() {
         <Container maxW="7xl" py={4}>
           <Flex justify="space-between" align="center">
             <HStack gap={2} as="a" href="/">
-              <Icon as={Plane} boxSize={8} color="blue.600" />
+              <Plane size={32} color="#3B82F6" />
               <Text fontSize="2xl" fontWeight="bold" color="gray.900">
                 Ontour Travels
               </Text>
@@ -87,7 +86,7 @@ export default function BookPage() {
               <Link href="/shortlets" color="gray.700">Shortlets</Link>
               <Link href="/tours" color="gray.700">Tours</Link>
               <Button colorPalette="blue" size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
-                <Icon as={MessageCircle} mr={1} />
+                <MessageCircle size={16} style={{ marginRight: '4px' }} />
                 WhatsApp
               </Button>
             </HStack>
@@ -106,11 +105,11 @@ export default function BookPage() {
             <Tabs.Root value={searchType} onValueChange={(e) => setSearchType(e.value as any)}>
               <Tabs.List mb={6}>
                 <Tabs.Trigger value="flights" color="white" fontWeight="medium">
-                  <Icon as={Plane} mr={2} />
+                  <Plane size={20} style={{ marginRight: '8px' }} />
                   Flights
                 </Tabs.Trigger>
                 <Tabs.Trigger value="hotels" color="white" fontWeight="medium">
-                  <Icon as={Hotel} mr={2} />
+                  <Hotel size={20} style={{ marginRight: '8px' }} />
                   Hotels
                 </Tabs.Trigger>
               </Tabs.List>
@@ -148,7 +147,7 @@ export default function BookPage() {
                   </Grid>
                   
                   <Button colorPalette="blue" bg="white" color="blue.600" size="lg" _hover={{ bg: "gray.100" }}>
-                    <Icon as={Search} mr={2} />
+                    <Search size={20} style={{ marginRight: '8px' }} />
                     Search Flights
                   </Button>
                 </VStack>
@@ -163,7 +162,7 @@ export default function BookPage() {
                   </Grid>
                   
                   <Button colorPalette="blue" bg="white" color="blue.600" size="lg" _hover={{ bg: "gray.100" }}>
-                    <Icon as={Search} mr={2} />
+                    <Search size={20} style={{ marginRight: '8px' }} />
                     Search Hotels
                   </Button>
                 </VStack>
@@ -188,7 +187,7 @@ export default function BookPage() {
               animate="visible"
             >
               <Heading as="h3" fontSize="lg" mb={4}>
-                <Icon as={Filter} display="inline" mr={2} />
+                <Filter size={20} style={{ display: 'inline', marginRight: '8px', verticalAlign: 'middle' }} />
                 Filters
               </Heading>
 
@@ -263,7 +262,7 @@ export default function BookPage() {
                 {searchType === "flights" ? "58 flights found" : "42 hotels found"}
               </Text>
               <Button size="sm" variant="outline" display={{ base: "flex", lg: "none" }}>
-                <Icon as={Filter} mr={2} />
+                <Filter size={16} style={{ marginRight: '8px' }} />
                 Filters
               </Button>
             </Flex>
@@ -358,7 +357,7 @@ export default function BookPage() {
               colorPalette="green"
               size="lg"
             >
-              <MessageCircle />
+              <MessageCircle size={20} style={{ marginRight: '8px' }} />
               Chat on WhatsApp
             </Button>
           </Flex>
@@ -371,7 +370,7 @@ export default function BookPage() {
           <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8}>
             <Box>
               <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="blue.400" />
+                <Plane size={32} color="#60A5FA" />
                 <Text fontSize="2xl" fontWeight="bold">Ontour Travels</Text>
               </HStack>
               <Text color="gray.400" fontSize="sm">
@@ -438,7 +437,9 @@ function FlightCard({ airline, logo, departure, arrival, duration, stops, price 
               <VStack gap={1}>
                 <Text fontSize="sm" color="gray.600">{duration}</Text>
                 <Box h="2px" w="full" bg="gray.300" position="relative">
-                  <Icon as={Plane} position="absolute" top="-10px" left="50%" transform="translateX(-50%)" color="gray.600" />
+                  <Box position="absolute" top="-10px" left="50%" transform="translateX(-50%)">
+                    <Plane size={20} color="#6B7280" />
+                  </Box>
                 </Box>
                 <Text fontSize="xs" color="gray.500">{stops}</Text>
               </VStack>
@@ -457,7 +458,7 @@ function FlightCard({ airline, logo, departure, arrival, duration, stops, price 
             </Box>
             <Button colorPalette="blue" w="full">
               Select Flight
-              <Icon as={ArrowRight} ml={2} />
+              <ArrowRight size={16} style={{ marginLeft: '8px' }} />
             </Button>
           </Flex>
         </Flex>
@@ -494,14 +495,14 @@ function HotelCard({ name, image, location, rating, reviews, amenities, price }:
                     {name}
                   </Heading>
                   <HStack gap={1} mb={2}>
-                    <Icon as={MapPin} boxSize={4} color="gray.500" />
+                    <MapPin size={16} color="#6B7280" />
                     <Text fontSize="sm" color="gray.600">{location}</Text>
                   </HStack>
                 </Box>
                 <Box textAlign="right">
                   <HStack gap={1}>
                     {Array.from({ length: rating }).map((_, i) => (
-                      <Icon key={i} as={Star} boxSize={4} fill="yellow.400" color="yellow.400" />
+                      <Star key={i} size={16} fill="#FBBF24" color="#FBBF24" />
                     ))}
                   </HStack>
                   <Text fontSize="xs" color="gray.600">{reviews} reviews</Text>
@@ -524,7 +525,7 @@ function HotelCard({ name, image, location, rating, reviews, amenities, price }:
               </Box>
               <Button colorPalette="blue">
                 View Details
-                <Icon as={ArrowRight} ml={2} />
+                <ArrowRight size={16} style={{ marginLeft: '8px' }} />
               </Button>
             </Flex>
           </Flex>
