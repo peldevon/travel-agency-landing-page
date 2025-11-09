@@ -11,7 +11,6 @@ import {
   Input,
   VStack,
   HStack,
-  Icon,
   Badge,
   Grid,
   Textarea,
@@ -283,9 +282,9 @@ export default function CMSPages() {
           </Box>
           <Button
             colorPalette="blue"
-            leftIcon={<Plus size={20} />}
             onClick={handleCreate}
           >
+            <Plus size={20} style={{ marginRight: '8px' }} />
             Create Page
           </Button>
         </Flex>
@@ -302,7 +301,7 @@ export default function CMSPages() {
           <Card.Root>
             <Card.Body p={8}>
               <Flex direction="column" align="center" gap={4}>
-                <Icon as={FileText} boxSize={12} color="gray.400" />
+                <FileText size={48} color="gray" />
                 <Text textAlign="center" color="gray.500">
                   No pages found. Create your first page to get started.
                 </Text>
@@ -348,7 +347,7 @@ export default function CMSPages() {
                         flex={1}
                         onClick={() => handleEdit(page)}
                       >
-                        <Icon as={Edit} boxSize={4} mr={1} />
+                        <Edit size={16} style={{ marginRight: '4px' }} />
                         Edit
                       </Button>
                       <Button
@@ -357,7 +356,7 @@ export default function CMSPages() {
                         colorScheme="red"
                         onClick={() => handleDelete(page.id)}
                       >
-                        <Icon as={Trash} boxSize={4} />
+                        <Trash size={16} />
                       </Button>
                     </Flex>
                   </VStack>

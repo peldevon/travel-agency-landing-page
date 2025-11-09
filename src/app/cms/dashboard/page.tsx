@@ -7,7 +7,6 @@ import {
   Heading,
   Text,
   Card,
-  Icon,
   Flex,
   VStack,
 } from "@chakra-ui/react";
@@ -87,29 +86,32 @@ export default function CMSDashboard() {
         </Box>
 
         <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
-          {statCards.map((stat) => (
-            <Card.Root key={stat.label} bg={stat.bg} borderRadius="lg" p={6}>
-              <Card.Body>
-                <Flex justify="space-between" align="start">
-                  <VStack align="start" gap={2}>
-                    <Text fontSize="sm" color="#2C2C2C" fontWeight="medium">
-                      {stat.label}
-                    </Text>
-                    <Heading fontSize="3xl" fontWeight="bold" color={stat.color}>
-                      {loading ? "..." : stat.value}
-                    </Heading>
-                  </VStack>
-                  <Box
-                    bg="white"
-                    p={3}
-                    borderRadius="lg"
-                  >
-                    <Icon as={stat.icon} boxSize={6} color={stat.color} />
-                  </Box>
-                </Flex>
-              </Card.Body>
-            </Card.Root>
-          ))}
+          {statCards.map((stat) => {
+            const IconComponent = stat.icon;
+            return (
+              <Card.Root key={stat.label} bg={stat.bg} borderRadius="lg" p={6}>
+                <Card.Body>
+                  <Flex justify="space-between" align="start">
+                    <VStack align="start" gap={2}>
+                      <Text fontSize="sm" color="#2C2C2C" fontWeight="medium">
+                        {stat.label}
+                      </Text>
+                      <Heading fontSize="3xl" fontWeight="bold" color={stat.color}>
+                        {loading ? "..." : stat.value}
+                      </Heading>
+                    </VStack>
+                    <Box
+                      bg="white"
+                      p={3}
+                      borderRadius="lg"
+                    >
+                      <IconComponent size={24} color={stat.color} />
+                    </Box>
+                  </Flex>
+                </Card.Body>
+              </Card.Root>
+            );
+          })}
         </Grid>
 
         <Card.Root>
@@ -128,7 +130,7 @@ export default function CMSDashboard() {
                 _hover={{ borderColor: "#C9A449", bg: "#f0f0f0" }}
                 transition="all 0.2s"
               >
-                <Icon as={Building} boxSize={6} color="#C9A449" mb={2} />
+                <Building size={24} color="#C9A449" style={{ marginBottom: '8px' }} />
                 <Text fontWeight="medium" color="#2C2C2C">Manage Shortlets</Text>
                 <Text fontSize="sm" color="gray.600">
                   Add or edit properties
@@ -145,7 +147,7 @@ export default function CMSDashboard() {
                 _hover={{ borderColor: "#152852", bg: "#f0f0f0" }}
                 transition="all 0.2s"
               >
-                <Icon as={Map} boxSize={6} color="#152852" mb={2} />
+                <Map size={24} color="#152852" style={{ marginBottom: '8px' }} />
                 <Text fontWeight="medium" color="#2C2C2C">Manage Tours</Text>
                 <Text fontSize="sm" color="gray.600">
                   Update tour packages

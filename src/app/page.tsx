@@ -12,7 +12,6 @@ import {
   Grid,
   HStack,
   VStack,
-  Icon,
   Link,
   IconButton,
   Input,
@@ -55,9 +54,9 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 
 // Create motion components using standard pattern
-const MotionBox = motion(Box);
-const MotionCard = motion(Card.Root);
-const MotionFlex = motion(Flex);
+const MotionBox = motion.create(Box);
+const MotionCard = motion.create(Card.Root);
+const MotionFlex = motion.create(Flex);
 
 // Animation variants
 const fadeInUp = {
@@ -261,7 +260,7 @@ export default function Home() {
                 Contact
               </Link>
               <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
-                <Icon as={MessageCircle} mr={2} />
+                <MessageCircle size={16} style={{ marginRight: '8px' }} />
                 WhatsApp
               </Button>
             </HStack>
@@ -308,7 +307,7 @@ export default function Home() {
                   Contact
                 </Link>
                 <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
-                  <Icon as={MessageCircle} mr={2} />
+                  <MessageCircle size={20} style={{ marginRight: '8px' }} />
                   WhatsApp
                 </Button>
               </VStack>
@@ -378,11 +377,11 @@ export default function Home() {
             <Tabs.Root value={searchType} onValueChange={(details) => setSearchType(details.value as "flights" | "hotels")}>
               <Tabs.List mb={6}>
                 <Tabs.Trigger value="flights" color="#2C2C2C" fontWeight="medium">
-                  <Icon as={Plane} mr={2} />
+                  <Plane size={20} style={{ marginRight: '8px' }} />
                   Flights
                 </Tabs.Trigger>
                 <Tabs.Trigger value="hotels" color="#2C2C2C" fontWeight="medium">
-                  <Icon as={Hotel} mr={2} />
+                  <Hotel size={20} style={{ marginRight: '8px' }} />
                   Hotels
                 </Tabs.Trigger>
               </Tabs.List>
@@ -429,7 +428,7 @@ export default function Home() {
                   </HStack>
                   
                   <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" w="full" as="a" href="/book">
-                    <Icon as={Search} mr={2} />
+                    <Search size={20} style={{ marginRight: '8px' }} />
                     Search Flights
                   </Button>
                   <Text fontSize="xs" color="gray.500" textAlign="center">
@@ -448,7 +447,7 @@ export default function Home() {
                   </Grid>
                   
                   <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" w="full" as="a" href="/book">
-                    <Icon as={Search} mr={2} />
+                    <Search size={20} style={{ marginRight: '8px' }} />
                     Search Hotels
                   </Button>
                   <Text fontSize="xs" color="gray.500" textAlign="center">
@@ -839,13 +838,13 @@ export default function Home() {
               </Text>
               <HStack gap={4}>
                 <Link href="#" _hover={{ color: "#C9A449" }}>
-                  <Icon as={Facebook} boxSize={5} />
+                  <Facebook size={20} />
                 </Link>
                 <Link href="#" _hover={{ color: "#C9A449" }}>
-                  <Icon as={Twitter} boxSize={5} />
+                  <Twitter size={20} />
                 </Link>
                 <Link href="#" _hover={{ color: "#C9A449" }}>
-                  <Icon as={Instagram} boxSize={5} />
+                  <Instagram size={20} />
                 </Link>
               </HStack>
             </Box>
@@ -874,15 +873,15 @@ export default function Home() {
               <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4} fontFamily="'Montserrat', sans-serif">Contact Us</Heading>
               <VStack align="start" gap={3}>
                 <HStack gap={2}>
-                  <Icon as={Phone} boxSize={4} color="#C9A449" />
+                  <Phone size={16} color="#C9A449" />
                   <Text color="#E5E5E5" fontFamily="'Open Sans', sans-serif">+234 812 345 6789</Text>
                 </HStack>
                 <HStack gap={2}>
-                  <Icon as={Mail} boxSize={4} color="#C9A449" />
+                  <Mail size={16} color="#C9A449" />
                   <Text color="#E5E5E5" fontFamily="'Open Sans', sans-serif">info@ontourtravels.com.ng</Text>
                 </HStack>
                 <HStack gap={2}>
-                  <Icon as={Clock} boxSize={4} color="#C9A449" />
+                  <Clock size={16} color="#C9A449" />
                   <Text color="#E5E5E5" fontFamily="'Open Sans', sans-serif">Mon–Sat, 9 AM – 6 PM WAT</Text>
                 </HStack>
               </VStack>
@@ -907,7 +906,7 @@ function AnimatedSection({ children, bg }: { children: React.ReactNode; bg?: str
   );
 }
 
-function TrustBadge({ icon, text }: { icon: any; text: string }) {
+function TrustBadge({ icon: IconComponent, text }: { icon: any; text: string }) {
   return (
     <MotionBox
       variants={fadeInUp}
@@ -915,7 +914,7 @@ function TrustBadge({ icon, text }: { icon: any; text: string }) {
       textAlign="center"
     >
       <Flex direction="column" align="center" gap={2}>
-        <Icon as={icon} boxSize={10} color="#152852" />
+        <IconComponent size={40} color="#152852" />
         <Text fontSize="sm" fontWeight="medium" color="#2C2C2C" maxW="150px" fontFamily="'Poppins', sans-serif">
           {text}
         </Text>
@@ -984,22 +983,22 @@ function ShortletCard({ slug, image, title, location, price, amenities }: any) {
           {title}
         </Heading>
         <HStack gap={2} mb={3}>
-          <Icon as={MapPin} boxSize={4} color="#555555" />
+          <MapPin size={16} color="#555555" />
           <Text fontSize="sm" color="#555555" fontFamily="'Open Sans', sans-serif" noOfLines={1}>{location}</Text>
         </HStack>
         
         {/* Property Details Icons */}
         <HStack gap={4} mb={3} color="#555555" fontSize="sm">
           <HStack gap={1}>
-            <Icon as={Hotel} boxSize={4} />
+            <Hotel size={16} />
             <Text>2 Bedrooms</Text>
           </HStack>
           <HStack gap={1}>
-            <Icon as={Wind} boxSize={4} />
+            <Wind size={16} />
             <Text>2 Baths</Text>
           </HStack>
           <HStack gap={1}>
-            <Icon as={Users} boxSize={4} />
+            <Users size={16} />
             <Text>4 Guests</Text>
           </HStack>
         </HStack>
@@ -1011,7 +1010,7 @@ function ShortletCard({ slug, image, title, location, price, amenities }: any) {
         {/* Rating */}
         <HStack gap={1} mb={4}>
           {Array.from({ length: 5 }).map((_, i) => (
-            <Icon key={i} as={Star} boxSize={4} fill="#C9A449" color="#C9A449" />
+            <Star key={i} size={16} fill="#C9A449" color="#C9A449" />
           ))}
           <Text fontSize="sm" fontWeight="medium" color="#555555" ml={2}>
             Excellent
@@ -1123,7 +1122,7 @@ function TourDestinationCard({ image, title, location, priceFrom, tag }: any) {
           {title}
         </Heading>
         <HStack gap={1} color="#555555" fontSize="sm">
-          <Icon as={MapPin} boxSize={4} />
+          <MapPin size={16} />
           <Text fontFamily="'Open Sans', sans-serif" noOfLines={1}>{location}</Text>
         </HStack>
       </Card.Body>
@@ -1131,7 +1130,7 @@ function TourDestinationCard({ image, title, location, priceFrom, tag }: any) {
   );
 }
 
-function ProcessStep({ number, icon, title, description }: any) {
+function ProcessStep({ number, icon: IconComponent, title, description }: any) {
   return (
     <MotionBox
       textAlign="center"
@@ -1149,7 +1148,7 @@ function ProcessStep({ number, icon, title, description }: any) {
             alignItems="center"
             justifyContent="center"
           >
-            <Icon as={icon} boxSize={10} />
+            <IconComponent size={40} />
           </Box>
           <Box
             position="absolute"
@@ -1190,7 +1189,7 @@ function TestimonialCard({ name, location, avatar, rating, text }: any) {
       <Card.Body>
         <HStack gap={1} mb={4}>
           {Array.from({ length: rating }).map((_, i) => (
-            <Icon key={i} as={Star} boxSize={5} fill="#C9A449" color="#C9A449" />
+            <Star key={i} size={20} fill="#C9A449" color="#C9A449" />
           ))}
         </HStack>
         <Text color="#2C2C2C" mb={6} fontStyle="italic" fontFamily="'Open Sans', sans-serif">

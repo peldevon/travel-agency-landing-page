@@ -11,10 +11,9 @@ import {
   Button,
   Input,
   VStack,
-  Icon,
   Image,
-  HStack } from
-"@chakra-ui/react";
+  HStack,
+} from "@chakra-ui/react";
 import { Plane, Lock, Mail } from "lucide-react";
 import { toast, Toaster } from "sonner";
 
@@ -73,11 +72,11 @@ export default function CMSLogin() {
                   alt="Ontour Travels Logo"
                   h="60px"
                   w="auto"
-                  objectFit="contain" />
-
+                  objectFit="contain"
+                />
               </HStack>
-              <Heading fontSize="2xl" fontWeight="bold" color="#2C2C2C" mb={2} className="!whitespace-pre-line">CONTENT ADMIN
-
+              <Heading fontSize="2xl" fontWeight="bold" color="#2C2C2C" mb={2}>
+                CONTENT ADMIN
               </Heading>
               <Text color="gray.600" textAlign="center">
                 Sign in to manage your website content
@@ -91,15 +90,14 @@ export default function CMSLogin() {
                     Email Address
                   </Text>
                   <Box position="relative">
-                    <Icon
-                      as={Mail}
+                    <Box
                       position="absolute"
                       left={3}
                       top="50%"
-                      transform="translateY(-50%)"
-                      color="gray.400"
-                      boxSize={5} />
-
+                      style={{ transform: 'translateY(-50%)' }}
+                    >
+                      <Mail size={20} color="gray" />
+                    </Box>
                     <Input
                       type="email"
                       placeholder="admin@ontourtravels.com.ng"
@@ -109,8 +107,8 @@ export default function CMSLogin() {
                       pl={10}
                       size="lg"
                       borderColor="#E5E5E5"
-                      _focus={{ borderColor: "#152852", boxShadow: "0 0 0 1px #152852" }} />
-
+                      _focus={{ borderColor: "#152852", boxShadow: "0 0 0 1px #152852" }}
+                    />
                   </Box>
                 </Box>
 
@@ -119,15 +117,14 @@ export default function CMSLogin() {
                     Password
                   </Text>
                   <Box position="relative">
-                    <Icon
-                      as={Lock}
+                    <Box
                       position="absolute"
                       left={3}
                       top="50%"
-                      transform="translateY(-50%)"
-                      color="gray.400"
-                      boxSize={5} />
-
+                      style={{ transform: 'translateY(-50%)' }}
+                    >
+                      <Lock size={20} color="gray" />
+                    </Box>
                     <Input
                       type="password"
                       placeholder="••••••••"
@@ -137,8 +134,8 @@ export default function CMSLogin() {
                       pl={10}
                       size="lg"
                       borderColor="#E5E5E5"
-                      _focus={{ borderColor: "#152852", boxShadow: "0 0 0 1px #152852" }} />
-
+                      _focus={{ borderColor: "#152852", boxShadow: "0 0 0 1px #152852" }}
+                    />
                   </Box>
                 </Box>
 
@@ -149,8 +146,8 @@ export default function CMSLogin() {
                   _hover={{ bg: "#0d1a35" }}
                   size="lg"
                   w="full"
-                  loading={loading}>
-
+                  loading={loading}
+                >
                   Sign In
                 </Button>
 
@@ -159,8 +156,8 @@ export default function CMSLogin() {
                   borderRadius="md"
                   p={4}
                   border="1px solid"
-                  borderColor="#E5E5E5">
-
+                  borderColor="#E5E5E5"
+                >
                   <Text fontSize="sm" fontWeight="medium" color="#152852" mb={1}>
                     Default Login Credentials:
                   </Text>
@@ -176,6 +173,6 @@ export default function CMSLogin() {
           </Box>
         </Container>
       </Box>
-    </>);
-
+    </>
+  );
 }
