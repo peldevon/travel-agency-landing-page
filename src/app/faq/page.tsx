@@ -11,9 +11,14 @@ import {
   Grid,
   HStack,
   Link,
+  Image,
+  IconButton,
+  Drawer,
+  Flex,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { MessageCircle, HelpCircle, Plane } from "lucide-react";
+import { MessageCircle, HelpCircle, Plane, Menu, X } from "lucide-react";
+import { useState } from "react";
 import {
   AccordionItem,
   AccordionItemContent,
@@ -186,17 +191,105 @@ const faqCategories = [
 ];
 
 export default function FAQPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
-    <Box minH="100vh" pt={20}>
+    <Box minH="100vh">
+      {/* Navigation Header */}
+      <Box
+        position="sticky"
+        top={0}
+        zIndex={50}
+        bg="white"
+        boxShadow="sm"
+      >
+        <Container maxW="7xl" py={4}>
+          <Flex justify="space-between" align="center">
+            <HStack gap={2} as="a" href="/">
+              <Image 
+                src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
+                alt="Ontour Travels Logo"
+                h="60px"
+                w="auto"
+                objectFit="contain"
+              />
+            </HStack>
+            <HStack gap={6} display={{ base: "none", md: "flex" }}>
+              <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }}>Home</Link>
+              <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }}>Flights & Hotels</Link>
+              <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }}>Shortlets</Link>
+              <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }}>Tours</Link>
+              <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
+              <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
+              <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
+                <Icon as={MessageCircle} mr={1} />
+                WhatsApp
+              </Button>
+            </HStack>
+            <IconButton 
+              display={{ base: "flex", md: "none" }} 
+              aria-label="Menu"
+              onClick={() => setMobileMenuOpen(true)}
+              variant="ghost"
+            >
+              <Menu />
+            </IconButton>
+          </Flex>
+        </Container>
+      </Box>
+
+      {/* Mobile Menu Drawer */}
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+        <Drawer.Backdrop />
+        <Drawer.Positioner>
+          <Drawer.Content>
+            <Drawer.Header>
+              <Drawer.Title>Menu</Drawer.Title>
+              <Drawer.CloseTrigger asChild>
+                <IconButton variant="ghost" aria-label="Close">
+                  <X />
+                </IconButton>
+              </Drawer.CloseTrigger>
+            </Drawer.Header>
+            <Drawer.Body>
+              <VStack gap={4} align="stretch">
+                <Link href="/" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Home
+                </Link>
+                <Link href="/book" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Flights & Hotels
+                </Link>
+                <Link href="/shortlets" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Shortlets
+                </Link>
+                <Link href="/tours" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Tours
+                </Link>
+                <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  About
+                </Link>
+                <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }} fontSize="lg" onClick={() => setMobileMenuOpen(false)}>
+                  Contact
+                </Link>
+                <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
+                  <Icon as={MessageCircle} mr={2} />
+                  WhatsApp
+                </Button>
+              </VStack>
+            </Drawer.Body>
+          </Drawer.Content>
+        </Drawer.Positioner>
+      </Drawer.Root>
+
       {/* Hero Section */}
-      <Box bg="blue.600" color="white" py={16}>
+      <Box bg="#152852" color="white" py={16}>
         <Container maxW="7xl" textAlign="center">
           <MotionBox variants={fadeInUp} initial="hidden" animate="visible">
             <Icon as={HelpCircle} boxSize={16} mx="auto" mb={4} />
             <Heading as="h1" fontSize={{ base: "4xl", md: "5xl" }} mb={4}>
               Frequently Asked Questions
             </Heading>
-            <Text fontSize={{ base: "lg", md: "xl" }} maxW="3xl" mx="auto">
+            <Text fontSize={{ base: "lg", md: "xl" }} maxW="3xl" mx="auto" color="#FAFAFA">
               Find quick answers to common questions about booking flights, hotels, shortlets, and tours with Ontour Travels.
             </Text>
           </MotionBox>
@@ -214,7 +307,7 @@ export default function FAQPage() {
               whileInView="visible"
               viewport={{ once: true }}
             >
-              <Heading as="h2" fontSize="2xl" mb={6} color="gray.900">
+              <Heading as="h2" fontSize="2xl" mb={6} color="#2C2C2C">
                 {category.category}
               </Heading>
               
@@ -222,7 +315,7 @@ export default function FAQPage() {
                 {category.questions.map((faq, qIdx) => (
                   <AccordionItem key={qIdx} value={`${idx}-${qIdx}`}>
                     <AccordionItemTrigger>
-                      <Text fontWeight="medium" color="gray.900" textAlign="left">
+                      <Text fontWeight="medium" color="#2C2C2C" textAlign="left">
                         {faq.q}
                       </Text>
                     </AccordionItemTrigger>
@@ -240,9 +333,9 @@ export default function FAQPage() {
       </Container>
 
       {/* CTA Section */}
-      <Box bg="blue.50" py={12}>
+      <Box bg="#f0f0f0" py={12}>
         <Container maxW="4xl" textAlign="center">
-          <Heading as="h2" fontSize="3xl" mb={4} color="gray.900">
+          <Heading as="h2" fontSize="3xl" mb={4} color="#2C2C2C">
             Still have questions?
           </Heading>
           <Text fontSize="lg" color="gray.600" mb={6}>
@@ -252,7 +345,9 @@ export default function FAQPage() {
             as="a"
             href="https://wa.me/2348123456789?text=Hi%20Ontour%2C%20I%20have%20a%20question%20about..."
             target="_blank"
-            colorPalette="green"
+            bg="#25D366"
+            color="white"
+            _hover={{ bg: "#1da851" }}
             size="lg"
           >
             <Icon as={MessageCircle} mr={2} />
@@ -262,43 +357,53 @@ export default function FAQPage() {
       </Box>
 
       {/* Footer */}
-      <Box bg="gray.900" color="white" py={12}>
+      <Box bg="#2C2C2C" color="white" py={12}>
         <Container maxW="7xl">
           <Grid templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }} gap={8}>
             <Box>
               <HStack gap={2} mb={4}>
-                <Icon as={Plane} boxSize={8} color="blue.400" />
-                <Text fontSize="2xl" fontWeight="bold">Ontour Travels</Text>
+                <Image 
+                  src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/render/image/public/document-uploads/ontour_logo-removebg-preview-1762616230494.png?width=8000&height=8000&resize=contain"
+                  alt="Ontour Travels Logo"
+                  h="40px"
+                  w="auto"
+                  objectFit="contain"
+                />
               </HStack>
-              <Text color="gray.400" fontSize="sm">
+              <Text color="#E5E5E5" fontSize="sm">
                 Your trusted partner for travel.
               </Text>
             </Box>
             <Box>
               <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Quick Links</Heading>
               <VStack align="start" gap={2}>
-                <Link href="/" color="gray.400" _hover={{ color: "white" }}>Home</Link>
-                <Link href="/book" color="gray.400" _hover={{ color: "white" }}>Book</Link>
-                <Link href="/tours" color="gray.400" _hover={{ color: "white" }}>Tours</Link>
-                <Link href="/about" color="gray.400" _hover={{ color: "white" }}>About</Link>
+                <Link href="/" color="#E5E5E5" _hover={{ color: "white" }}>Home</Link>
+                <Link href="/book" color="#E5E5E5" _hover={{ color: "white" }}>Flights & Hotels</Link>
+                <Link href="/shortlets" color="#E5E5E5" _hover={{ color: "white" }}>Shortlets</Link>
+                <Link href="/tours" color="#E5E5E5" _hover={{ color: "white" }}>Tours</Link>
+                <Link href="/about" color="#E5E5E5" _hover={{ color: "white" }}>About</Link>
               </VStack>
             </Box>
             <Box>
               <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Support</Heading>
               <VStack align="start" gap={2}>
-                <Link href="/contact" color="gray.400" _hover={{ color: "white" }}>Contact</Link>
-                <Link href="/terms" color="gray.400" _hover={{ color: "white" }}>Terms</Link>
-                <Link href="/privacy" color="gray.400" _hover={{ color: "white" }}>Privacy</Link>
+                <Link href="/contact" color="#E5E5E5" _hover={{ color: "white" }}>Contact Us</Link>
+                <Link href="/faq" color="#E5E5E5" _hover={{ color: "white" }}>FAQ</Link>
+                <Link href="/terms" color="#E5E5E5" _hover={{ color: "white" }}>Terms</Link>
+                <Link href="/privacy" color="#E5E5E5" _hover={{ color: "white" }}>Privacy</Link>
               </VStack>
             </Box>
             <Box>
               <Heading as="h3" fontSize="lg" fontWeight="bold" mb={4}>Contact</Heading>
-              <Text color="gray.400" fontSize="sm">+234 812 345 6789</Text>
-              <Text color="gray.400" fontSize="sm">info@ontourtravels.com.ng</Text>
+              <VStack align="start" gap={2}>
+                <Text color="#E5E5E5" fontSize="sm">+234 812 345 6789</Text>
+                <Text color="#E5E5E5" fontSize="sm">info@ontourtravels.com.ng</Text>
+                <Text color="#E5E5E5" fontSize="sm">Mon–Sat, 9 AM – 6 PM</Text>
+              </VStack>
             </Box>
           </Grid>
-          <Box borderTop="1px" borderColor="gray.800" pt={8} mt={8} textAlign="center" color="gray.400">
-            <Text fontSize="sm">&copy; 2024 Ontour Travels. All rights reserved. Made with <Text as="span" color="red.500">💓</Text> by <Link href="https://github.com/peldevon" target="_blank" rel="noopener noreferrer" _hover={{ color: "blue.400" }}>Peldevon</Link></Text>
+          <Box borderTop="1px" borderColor="gray.800" pt={8} mt={8} textAlign="center" color="#E5E5E5">
+            <Text fontSize="sm">&copy; 2024 Ontour Travels. All rights reserved. Made with <Text as="span" color="red.500">💓</Text> by <Link href="https://github.com/peldevon" target="_blank" rel="noopener noreferrer" _hover={{ color: "#C9A449" }}>Peldevon</Link></Text>
           </Box>
         </Container>
       </Box>
