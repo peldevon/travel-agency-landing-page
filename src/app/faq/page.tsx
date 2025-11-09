@@ -6,7 +6,6 @@ import {
   Heading,
   Text,
   Button,
-  Icon,
   VStack,
   Grid,
   HStack,
@@ -20,10 +19,10 @@ import { motion } from "framer-motion";
 import { MessageCircle, HelpCircle, Plane, Menu, X } from "lucide-react";
 import { useState } from "react";
 import {
+  Accordion,
   AccordionItem,
-  AccordionItemContent,
-  AccordionItemTrigger,
-  AccordionRoot,
+  AccordionContent,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 
 const MotionBox = motion.create(Box);
@@ -222,7 +221,7 @@ export default function FAQPage() {
               <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
               <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
               <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
-                <Icon as={MessageCircle} mr={1} />
+                <MessageCircle size={16} style={{ marginRight: '4px' }} />
                 WhatsApp
               </Button>
             </HStack>
@@ -239,7 +238,7 @@ export default function FAQPage() {
       </Box>
 
       {/* Mobile Menu Drawer */}
-      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(details) => setMobileMenuOpen(details.open)} placement="end">
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content>
@@ -272,7 +271,7 @@ export default function FAQPage() {
                   Contact
                 </Link>
                 <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
-                  <Icon as={MessageCircle} mr={2} />
+                  <MessageCircle size={20} style={{ marginRight: '8px' }} />
                   WhatsApp
                 </Button>
               </VStack>
@@ -285,7 +284,7 @@ export default function FAQPage() {
       <Box bg="#152852" color="white" py={16}>
         <Container maxW="7xl" textAlign="center">
           <MotionBox variants={fadeInUp} initial="hidden" animate="visible">
-            <Icon as={HelpCircle} boxSize={16} mx="auto" mb={4} />
+            <HelpCircle size={64} style={{ margin: '0 auto 16px' }} />
             <Heading as="h1" fontSize={{ base: "4xl", md: "5xl" }} mb={4}>
               Frequently Asked Questions
             </Heading>
@@ -311,22 +310,22 @@ export default function FAQPage() {
                 {category.category}
               </Heading>
               
-              <AccordionRoot collapsible>
+              <Accordion>
                 {category.questions.map((faq, qIdx) => (
                   <AccordionItem key={qIdx} value={`${idx}-${qIdx}`}>
-                    <AccordionItemTrigger>
+                    <AccordionTrigger>
                       <Text fontWeight="medium" color="#2C2C2C" textAlign="left">
                         {faq.q}
                       </Text>
-                    </AccordionItemTrigger>
-                    <AccordionItemContent>
+                    </AccordionTrigger>
+                    <AccordionContent>
                       <Text color="gray.700" lineHeight="tall">
                         {faq.a}
                       </Text>
-                    </AccordionItemContent>
+                    </AccordionContent>
                   </AccordionItem>
                 ))}
-              </AccordionRoot>
+              </Accordion>
             </MotionBox>
           ))}
         </VStack>
@@ -350,7 +349,7 @@ export default function FAQPage() {
             _hover={{ bg: "#1da851" }}
             size="lg"
           >
-            <Icon as={MessageCircle} mr={2} />
+            <MessageCircle size={20} style={{ marginRight: '8px' }} />
             Chat on WhatsApp
           </Button>
         </Container>

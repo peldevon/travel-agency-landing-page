@@ -116,6 +116,7 @@ export default function CMSLayout({ children }: CMSLayoutProps) {
           <VStack align="stretch" gap={2}>
             {menuItems.map((item) => {
               const isActive = pathname === item.href;
+              const IconComponent = item.icon;
               return (
                 <Link
                   key={item.href}
@@ -134,7 +135,7 @@ export default function CMSLayout({ children }: CMSLayoutProps) {
                     cursor="pointer"
                     transition="all 0.2s"
                   >
-                    <Icon as={item.icon} boxSize={5} />
+                    <IconComponent size={20} />
                     {sidebarOpen && (
                       <Text fontSize="sm" fontWeight="medium">
                         {item.label}
@@ -165,7 +166,7 @@ export default function CMSLayout({ children }: CMSLayoutProps) {
                 color="white"
                 _hover={{ bg: "#0d1a35", color: "#C9A449" }}
               >
-                <Icon as={LogOut} boxSize={4} mr={2} />
+                <LogOut size={16} style={{ marginRight: '8px' }} />
                 Logout
               </Button>
             </VStack>
@@ -178,7 +179,7 @@ export default function CMSLayout({ children }: CMSLayoutProps) {
               color="white"
               _hover={{ bg: "#0d1a35", color: "#C9A449" }}
             >
-              <Icon as={LogOut} boxSize={5} />
+              <LogOut size={20} />
             </Button>
           )}
         </Box>

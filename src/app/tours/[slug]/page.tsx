@@ -41,7 +41,6 @@ import {
   X,
 } from "lucide-react";
 import { Field } from "@/components/ui/field";
-import { toaster } from "@/components/ui/toaster";
 
 const MotionBox = motion.create(Box);
 const MotionCard = motion.create(Card.Root);
@@ -134,12 +133,7 @@ export default function TourDetailPage() {
       });
 
       if (response.ok) {
-        toaster.create({
-          title: "Enquiry Sent!",
-          description: "We'll get back to you within 24 hours. Check WhatsApp for faster response!",
-          type: "success",
-          duration: 5000,
-        });
+        toaster.show("Enquiry sent successfully! We'll get back to you within 24 hours. Check WhatsApp for faster response!");
         setFormData({
           name: "",
           email: "",
@@ -155,12 +149,7 @@ export default function TourDetailPage() {
         throw new Error("Failed to send enquiry");
       }
     } catch (error) {
-      toaster.create({
-        title: "Error",
-        description: "Failed to send enquiry. Please try WhatsApp instead.",
-        type: "error",
-        duration: 5000,
-      });
+      toaster.show("Failed to send enquiry. Please try WhatsApp instead.");
     } finally {
       setSubmitting(false);
     }
@@ -225,7 +214,7 @@ export default function TourDetailPage() {
               <Link href="/about" color="#2C2C2C" _hover={{ color: "#152852" }}>About</Link>
               <Link href="/contact" color="#2C2C2C" _hover={{ color: "#152852" }}>Contact</Link>
               <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="sm" as="a" href="https://wa.me/2348123456789" target="_blank">
-                <Icon as={MessageCircle} mr={1} />
+                <MessageCircle size={16} style={{ marginRight: '4px' }} />
                 WhatsApp
               </Button>
             </HStack>
@@ -242,7 +231,7 @@ export default function TourDetailPage() {
       </Box>
 
       {/* Mobile Menu Drawer */}
-      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(details) => setMobileMenuOpen(details.open)} placement="end">
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content>
@@ -275,7 +264,7 @@ export default function TourDetailPage() {
                   Contact
                 </Link>
                 <Button bg="#152852" color="white" _hover={{ bg: "#0d1a35" }} size="lg" as="a" href="https://wa.me/2348123456789" target="_blank">
-                  <Icon as={MessageCircle} mr={2} />
+                  <MessageCircle size={20} style={{ marginRight: '8px' }} />
                   WhatsApp
                 </Button>
               </VStack>
@@ -360,11 +349,11 @@ export default function TourDetailPage() {
 
               <HStack gap={6} flexWrap="wrap" color="gray.700">
                 <HStack gap={2}>
-                  <Icon as={Clock} color="blue.600" />
+                  <Clock size={20} color="#3b82f6" />
                   <Text>{tour.duration_days}D/{tour.duration_nights}N</Text>
                 </HStack>
                 <HStack gap={2}>
-                  <Icon as={Calendar} color="blue.600" />
+                  <Calendar size={20} color="#3b82f6" />
                   <Text>{tour.seasonality.split(":")[1]?.trim() || tour.seasonality}</Text>
                 </HStack>
               </HStack>
@@ -378,7 +367,7 @@ export default function TourDetailPage() {
               <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={3}>
                 {tour.highlights.map((highlight, idx) => (
                   <HStack key={idx} gap={3} align="start">
-                    <Icon as={CheckCircle} color="green.500" boxSize={5} mt={0.5} flexShrink={0} />
+                    <CheckCircle size={20} color="#10b981" style={{ flexShrink: 0, marginTop: '2px' }} />
                     <Text color="gray.700">{highlight}</Text>
                   </HStack>
                 ))}
@@ -425,13 +414,13 @@ export default function TourDetailPage() {
             <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap={6} mb={8}>
               <Box>
                 <Heading as="h3" fontSize="xl" mb={4} color="gray.900">
-                  <Icon as={CheckCircle} color="green.500" mr={2} />
+                  <CheckCircle size={20} color="#10b981" style={{ display: 'inline-block', marginRight: '8px' }} />
                   What's Included
                 </Heading>
                 <VStack gap={2} align="stretch">
                   {tour.inclusions.map((item, idx) => (
                     <HStack key={idx} gap={2} align="start">
-                      <Icon as={CheckCircle} color="green.500" boxSize={4} mt={1} flexShrink={0} />
+                      <CheckCircle size={16} color="#10b981" style={{ flexShrink: 0, marginTop: '4px' }} />
                       <Text fontSize="sm" color="gray.700">{item}</Text>
                     </HStack>
                   ))}
@@ -440,13 +429,13 @@ export default function TourDetailPage() {
 
               <Box>
                 <Heading as="h3" fontSize="xl" mb={4} color="gray.900">
-                  <Icon as={XCircle} color="red.500" mr={2} />
+                  <XCircle size={20} color="#ef4444" style={{ display: 'inline-block', marginRight: '8px' }} />
                   What's Not Included
                 </Heading>
                 <VStack gap={2} align="stretch">
                   {tour.exclusions.map((item, idx) => (
                     <HStack key={idx} gap={2} align="start">
-                      <Icon as={XCircle} color="red.500" boxSize={4} mt={1} flexShrink={0} />
+                      <XCircle size={16} color="#ef4444" style={{ flexShrink: 0, marginTop: '4px' }} />
                       <Text fontSize="sm" color="gray.700">{item}</Text>
                     </HStack>
                   ))}
@@ -462,7 +451,7 @@ export default function TourDetailPage() {
               <VStack gap={2} align="stretch">
                 {tour.accommodation_examples.map((hotel, idx) => (
                   <HStack key={idx} gap={2}>
-                    <Icon as={Star} color="yellow.500" boxSize={4} />
+                    <Star size={16} color="#eab308" fill="#eab308" />
                     <Text color="gray.700">{hotel}</Text>
                   </HStack>
                 ))}
@@ -475,7 +464,7 @@ export default function TourDetailPage() {
             {/* Visa & Documents */}
             <MotionBox variants={fadeInUp} initial="hidden" animate="visible" mb={8}>
               <Heading as="h3" fontSize="xl" mb={4} color="gray.900">
-                <Icon as={FileText} color="blue.600" mr={2} />
+                <FileText size={20} color="#3b82f6" style={{ display: 'inline-block', marginRight: '8px' }} />
                 Visa & Documentation
               </Heading>
               <Card.Root bg="blue.50" borderColor="blue.200">
@@ -504,7 +493,7 @@ export default function TourDetailPage() {
             {/* Cancellation Policy */}
             <MotionBox variants={fadeInUp} initial="hidden" animate="visible">
               <Heading as="h3" fontSize="xl" mb={4} color="gray.900">
-                <Icon as={Info} color="orange.500" mr={2} />
+                <Info size={20} color="#f97316" style={{ display: 'inline-block', marginRight: '8px' }} />
                 Cancellation Policy
               </Heading>
               <Card.Root bg="orange.50" borderColor="orange.200">
@@ -526,7 +515,7 @@ export default function TourDetailPage() {
                 borderRadius="lg"
               >
                 <Heading as="h3" fontSize="2xl" mb={6} color="gray.900">
-                  <Icon as={MessageCircle} color="blue.600" mr={2} />
+                  <MessageCircle size={24} color="#3b82f6" style={{ display: 'inline-block', marginRight: '8px' }} />
                   Request a Quote
                 </Heading>
                 <form onSubmit={handleEnquirySubmit}>
@@ -660,19 +649,19 @@ export default function TourDetailPage() {
                   <Box borderTop="1px solid" borderColor="gray.200" pt={4}>
                     <VStack gap={3} align="stretch">
                       <HStack gap={2}>
-                        <Icon as={Clock} color="gray.600" />
+                        <Clock size={20} color="#6b7280" />
                         <Text fontSize="sm" color="gray.700">
                           {tour.duration_days} Days / {tour.duration_nights} Nights
                         </Text>
                       </HStack>
                       <HStack gap={2}>
-                        <Icon as={Users} color="gray.600" />
+                        <Users size={20} color="#6b7280" />
                         <Text fontSize="sm" color="gray.700">
                           Suitable for all travelers
                         </Text>
                       </HStack>
                       <HStack gap={2}>
-                        <Icon as={Shield} color="gray.600" />
+                        <Shield size={20} color="#6b7280" />
                         <Text fontSize="sm" color="gray.700">
                           Secure booking
                         </Text>
@@ -688,7 +677,7 @@ export default function TourDetailPage() {
                     href={whatsappLink}
                     target="_blank"
                   >
-                    <Icon as={MessageCircle} mr={2} />
+                    <MessageCircle size={20} style={{ marginRight: '8px' }} />
                     Enquire on WhatsApp
                   </Button>
 
@@ -705,19 +694,19 @@ export default function TourDetailPage() {
                   <Box borderTop="1px solid" borderColor="gray.200" pt={4}>
                     <VStack gap={2} align="stretch">
                       <HStack gap={2}>
-                        <Icon as={CheckCircle} color="green.500" boxSize={4} />
+                        <CheckCircle size={16} color="#10b981" />
                         <Text fontSize="xs" color="gray.600">
                           Best price guarantee
                         </Text>
                       </HStack>
                       <HStack gap={2}>
-                        <Icon as={CheckCircle} color="green.500" boxSize={4} />
+                        <CheckCircle size={16} color="#10b981" />
                         <Text fontSize="xs" color="gray.600">
                           Secure payment via Paystack
                         </Text>
                       </HStack>
                       <HStack gap={2}>
-                        <Icon as={CheckCircle} color="green.500" boxSize={4} />
+                        <CheckCircle size={16} color="#10b981" />
                         <Text fontSize="xs" color="gray.600">
                           24/7 customer support
                         </Text>
@@ -737,7 +726,7 @@ export default function TourDetailPage() {
           <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={6}>
             <Card.Root textAlign="center">
               <Card.Body p={6}>
-                <Icon as={Shield} boxSize={12} color="blue.600" mx="auto" mb={3} />
+                <Shield size={48} color="#3b82f6" style={{ margin: '0 auto 12px' }} />
                 <Heading as="h3" fontSize="lg" mb={2}>
                   Secure Booking
                 </Heading>
@@ -749,7 +738,7 @@ export default function TourDetailPage() {
 
             <Card.Root textAlign="center">
               <Card.Body p={6}>
-                <Icon as={MessageCircle} boxSize={12} color="green.600" mx="auto" mb={3} />
+                <MessageCircle size={48} color="#10b981" style={{ margin: '0 auto 12px' }} />
                 <Heading as="h3" fontSize="lg" mb={2}>
                   Instant Support
                 </Heading>
@@ -761,7 +750,7 @@ export default function TourDetailPage() {
 
             <Card.Root textAlign="center">
               <Card.Body p={6}>
-                <Icon as={FileText} boxSize={12} color="purple.600" mx="auto" mb={3} />
+                <FileText size={48} color="#a855f7" style={{ margin: '0 auto 12px' }} />
                 <Heading as="h3" fontSize="lg" mb={2}>
                   Visa Support
                 </Heading>
