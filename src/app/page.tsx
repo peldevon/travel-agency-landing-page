@@ -278,7 +278,7 @@ export default function Home() {
       </MotionBox>
 
       {/* Mobile Menu Drawer */}
-      <Drawer.Root open={mobileMenuOpen} onOpenChange={(e) => setMobileMenuOpen(e.open)} placement="end">
+      <Drawer.Root open={mobileMenuOpen} onOpenChange={(details) => setMobileMenuOpen(details.open)} placement="end">
         <Drawer.Backdrop />
         <Drawer.Positioner>
           <Drawer.Content>
@@ -375,7 +375,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            <Tabs.Root value={searchType} onValueChange={(e) => setSearchType(e.value as any)}>
+            <Tabs.Root value={searchType} onValueChange={(details) => setSearchType(details.value as "flights" | "hotels")}>
               <Tabs.List mb={6}>
                 <Tabs.Trigger value="flights" color="#2C2C2C" fontWeight="medium">
                   <Icon as={Plane} mr={2} />
